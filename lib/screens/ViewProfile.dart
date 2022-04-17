@@ -1,333 +1,232 @@
-// import 'package:baby_sitter_app/screens/Reviews.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
+// // import 'package:baby_sitter_app/screens/Reviews.dart';
 
-// import '../Dates/dates.dart';
-// import '../screens ui/Availability.dart';
-import '../screens ui/Reviews.dart';
-import 'checkout.dart';
-// import 'chooseServices.dart';
-// import 'chooseServices.dart';
+// import 'package:flutter/material.dart';
 
-class ViewProf extends StatefulWidget {
-  ViewProf({Key? key, required this.nameofSitter, required this.uniquekey,required this.parentKey })
-      : super(key: key);
-      String parentKey;
-  String nameofSitter;
-  String uniquekey;
+// // import '../Dates/dates.dart';
+// // import '../screens ui/Availability.dart';
 
-  @override
-  State<ViewProf> createState() => _ViewProfState();
-}
+// // import 'chooseServices.dart';
+// // import 'chooseServices.dart';
 
-class _ViewProfState extends State<ViewProf> {
-  late DateTime date;
-  String BabySitterdescrip = 'Hello am a baby sitter';
-  final database = FirebaseDatabase.instance.ref;
-  String photourl = '';
-  bool isfavourite = false;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // activateListeners(context);
-    // nameUpdate(context);
-    // getdetails(context);
-    nameUpdate(context);
-  }
+// class ViewProf extends StatefulWidget {
+//   ViewProf(
+//       {Key? key,
+//       required this.nameofSitter,
+//       required this.uniquekey,
+//       required this.parentKey})
+//       : super(key: key);
+//   String parentKey;
+//   String nameofSitter;
+//   String uniquekey;
 
-  void nameUpdate(BuildContext context) {
-    database
-        .call('Dummyinputskeys/${widget.uniquekey}/Description/description')
-        .onValue
-        .listen((event) {
-      final Object? NameofSitter = event.snapshot.value;
-      setState(() {
-        BabySitterdescrip = '$NameofSitter';
-      });
-    });
-  }
+//   @override
+//   State<ViewProf> createState() => _ViewProfState();
+// }
 
-  // void activateListeners(BuildContext context) {
-  //   database
-  //       .call('Sitter Details/SitterPhofilePhotoUrl')
-  //       .onValue
-  //       .listen((event) {
-  //     final Object? NameofSitter = event.snapshot.value;
-  //     setState(() {
-  //       photourl = '$NameofSitter';
-  //       print("this is photo path" + photourl);
-  //     });
-  //   });
-  // }
-  String name = 'name';
+// class _ViewProfState extends State<ViewProf> {
+//   late DateTime date;
+//   String BabySitterdescrip = 'Hello am a baby sitter';
+//   // final database = FirebaseDatabase.instance.ref;
+//   String photourl = '';
+//   bool isfavourite = false;
 
-  //  final contactinfo = FirebaseDatabase.instance
-  //     .ref()
-  //     .child('Dummyinputskeys')
-  //     .orderByChild('name');
-  String getTxt() {
-    if (date == null) {
-      return 'select Date';
-    } else {
-      return '${date.month}//${date.day}//${date.year}';
-    }
-  }
+//   String name = 'name';
 
-  Future pickDate(BuildContext context) async {
-    final intialDate = DateTime.now();
-    final newDate = await showDatePicker(
-      context: context,
-      initialDate: intialDate,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
-    );
-    if (newDate == null) return;
-    setState(() {});
-  }
+//   String getTxt() {
+//     if (date == null) {
+//       return 'select Date';
+//     } else {
+//       return '${date.month}//${date.day}//${date.year}';
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    // final Babysitter_description = database.call('Sitter Details');
+//   Future pickDate(BuildContext context) async {
+//     final intialDate = DateTime.now();
+//     final newDate = await showDatePicker(
+//       context: context,
+//       initialDate: intialDate,
+//       firstDate: DateTime(DateTime.now().year - 5),
+//       lastDate: DateTime(DateTime.now().year + 5),
+//     );
+//     if (newDate == null) return;
+//     setState(() {});
+//   }
 
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset('assets/babysitter.png')),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height - 200,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                  ),
-                ),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Positioned(
-                              top: 20,
-                              left: 20,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 150, bottom: 00.0),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  // color: Colors.red,
-                                  margin: EdgeInsets.only(top: 20, left: 20),
-                                  // width: 324,
-                                  // height: 228,
-                                  // child: Image.network(
-                                  //   photourl,
-                                  //   width: 324,
-                                  //   height: 228,
-                                  // ),
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      // crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        // Image.asset('assets/niki.png'),
-                                        Container(
-                                          width: 100,
-                                          height: 140,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xff6043F5),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.person,
-                                              color: Colors.white,
-                                              size: 60,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          widget.nameofSitter,
-                                          style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff6043F5),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              'DESCRIPTION',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xff6043F5),
-                              ),
-                            ),
-                            Text(
-                              // BabySitterdescrip),//Getting the descrition of the user from the database
-                              BabySitterdescrip,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10.0, right: 10),
-                              child: Divider(
-                                thickness: 2,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width - 100),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ReviewsComments()),
-                                  );
-                                },
-                                child: Text(
-                                  'View All',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              'REVIEWS',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xff6043F5),
-                              ),
-                            ),
-                            reviewListTile(
-                                'He has watched my two children (ages 4 and 7) twice a week for the entire summer, and they were a joy to work ....',
-                                'Phill Wilson'),
-                            reviewListTile(
-                                'He has watched my two children (ages 4 and 7) twice a week for the entire summer, and they were a joy to work ....',
-                                'Phill Wilson'),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 00,
-                      right: 10,
-                      child: FloatingActionButton(
-                        backgroundColor: Colors.white60,
-                        onPressed: () {
-                          setState(() {
-                            isfavourite = !isfavourite;
-                          });
-                        },
-                        child: !isfavourite
-                            ? Icon(
-                                Icons.favorite_border_outlined,
-                                color: Colors.black,
-                              )
-                            : Icon(
-                                Icons.favorite,
-                                color: Color(0xff693EFF),
-                              ),
-                      ),
-                      // ElevatedButton(
-                      //   child: Text('Check Availability'),
-                      //   onPressed: () {
-                      //     pickDate(context);
-                      //     Navigator.push(
-                      //       context,
-                      //       (MaterialPageRoute(
-                      //         builder: (context) => AvailabilityPage(),
-                      //       )),
-                      //     );
-                      //   },
-                      // ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 2.0),
-                        child: SizedBox(
-                          width: 329,
-                          height: 52.34,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              getdetails(context);
-                              Navigator.push(
-                                context,
-                                (MaterialPageRoute(
-                                  builder: (context) => CheckoutPage(
-                                    ParentKey: widget.parentKey,
-                                    name: widget.nameofSitter,
-                                    uniquekeys: widget.uniquekey,
-                                  ),
-                                  // builder: (context) => ServicesChoosen(),
-                                )),
-                              );
-                            },
-                            child: Text(
-                              'Check Availability',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     // final Babysitter_description = database.call('Sitter Details');
 
-  final databasenew = FirebaseDatabase.instance.ref().child('Dummyinputskeys');
-  getdetails(BuildContext context) async {
-    DataSnapshot snapshot =
-        await databasenew.child(widget.nameofSitter).once() as DataSnapshot;
-    Map contact = Map<String, dynamic>.from(snapshot.value as Map);
-    name = contact['name'];
-    print(1);
-  }
+//     // ignore: sized_box_for_whitespace
+//     return Container(
+//       width: MediaQuery.of(context).size.width,
+//       child: Scaffold(
+//         body: Stack(
+//           children: [
+//             Align(
+//               alignment: Alignment.topCenter,
+//               child: SizedBox(
+//                   width: MediaQuery.of(context).size.width,
+//                   child: Image.asset('assets/babysitter.png')),
+//             ),
+//             Align(
+//               alignment: Alignment.bottomCenter,
+//               child: Container(
+//                 width: MediaQuery.of(context).size.width,
+//                 height: MediaQuery.of(context).size.height - 200,
+//                 decoration: const BoxDecoration(
+//                   // color: Colors.blueGrey,
+//                   borderRadius: BorderRadius.only(
+//                     topLeft: Radius.circular(30),
+//                   ),
+//                 ),
+//                 child: Stack(
+//                   children: [
+//                     Padding(
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: Align(
+//                         alignment: Alignment.topLeft,
+//                         child: SingleChildScrollView(
+//                           child: Column(
+//                             mainAxisAlignment: MainAxisAlignment.start,
+//                             children: [
+//                               Padding(
+//                                 padding: const EdgeInsets.only(
+//                                     right: 150, bottom: 00.0),
+//                                 child: SingleChildScrollView(
+//                                   scrollDirection: Axis.horizontal,
+//                                   child: Row(
+//                                     mainAxisAlignment: MainAxisAlignment.center,
+//                                     children: [
+//                                       SizedBox(
+//                                         // color: Colors.blue,
+//                                         width: 100,
+//                                         height: 140,
+//                                         child: Center(
+//                                           child: ClipRRect(
+//                                               borderRadius:
+//                                                   BorderRadius.circular(8.0),
+//                                               child: Image.asset(
+//                                                   'assets/niki.png')),
+//                                         ),
+//                                       ),
+//                                       Padding(
+//                                         padding: const EdgeInsets.only(left:8.0,top:10),
+//                                         child: Column(
+//                                           children: [
+//                                             Text(
+//                                               widget.nameofSitter,
+//                                               style: const TextStyle(
+//                                                 fontSize: 15,
+//                                                 fontWeight: FontWeight.w500,
+//                                                 color: Color(0xff6043F5),
+//                                                 fontFamily: 'Roboto',
+//                                               ),
+//                                             ),
+//                                             Row(
+//                                               children: const [
+//                                                 Icon(
+//                                                   Icons.star,
+//                                                   color: Colors.orange,
+//                                                   size: 10,
+//                                                 ),
+//                                                 Text(
+//                                                   '4.7 Reviews (56)',
+//                                                   style: TextStyle(
+//                                                     fontSize: 10,
+                                                    
+//                                                     color: Colors.grey,
+//                                                   ),
+//                                                 ),
+//                                               ],
+//                                             ),
+//                                             Row(
+//                                               children: const [
+//                                                 Text(
+//                                                   'Montreal Quebec',
+//                                                   style: TextStyle(
+//                                                     fontSize: 10,
+//                                                     color: Colors.grey,
+//                                                   ),
+//                                                 ),
+//                                               ],
+//                                             ),
+//                                           ],
+//                                         ),
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                     Positioned(
+//                       top: 09,
+//                       right: 10,
+//                       child: FloatingActionButton(
+//                         backgroundColor: Colors.white,
+//                         onPressed: () {
+//                           setState(() {
+//                             isfavourite = !isfavourite;
+//                           });
+//                         },
+//                         child: !isfavourite
+//                             ? const Icon(
+//                                 Icons.favorite_border_outlined,
+//                                 color: Colors.black,
+//                               )
+//                             : const Icon(
+//                                 Icons.favorite,
+//                                 color: Color(0xff693EFF),
+//                               ),
+//                       ),
+//                     ),
+//                     Container(height: 23,width: 23,color: Colors.red,),
+//                     Align(
+//                       alignment: Alignment.bottomCenter,
+//                       child: Padding(
+//                         padding: const EdgeInsets.only(bottom: 2.0),
+//                         child: SizedBox(
+//                           width: 329,
+//                           height: 52.34,
+//                           child: ElevatedButton(
+//                             onPressed: () {},
+//                             child: const Text(
+//                               'Check Availability',
+//                               style: TextStyle(fontSize: 18),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     )
+//                   ],
+//                 ),
+//               ),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
 
-  Widget reviewListTile(message, name) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListTile(
-        leading: CircleAvatar(
-          radius: 40,
-          backgroundImage: ExactAssetImage('assets/wilson.png'),
-        ),
-        title: Text(
-          name,
-          style: TextStyle(
-            color: Color(0xff6043F5),
-          ),
-        ),
-        subtitle: Text(message),
-      ),
-    );
-  }
-}
+//   Widget reviewListTile(message, name) {
+//     return Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: ListTile(
+//         leading: CircleAvatar(
+//           radius: 40,
+//           backgroundImage: ExactAssetImage('assets/wilson.png'),
+//         ),
+//         title: Text(
+//           name,
+//           style: TextStyle(
+//             color: Color(0xff6043F5),
+//           ),
+//         ),
+//         subtitle: Text(message),
+//       ),
+//     );
+//   }
+// }

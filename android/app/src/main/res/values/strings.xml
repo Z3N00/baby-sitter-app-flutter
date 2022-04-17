@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+ <string name="app_name">babycare</string>  
+<string name="facebook_app_id">470884918066976</string>
+<string name="fb_login_protocol_scheme">fb470884918066976</string>
+<string name="facebook_client_token">e665ef6d14b39be7779ba2ddec8b397b</string>
+
+
+</resources>

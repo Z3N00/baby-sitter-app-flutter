@@ -1,313 +1,312 @@
-// import 'package:baby_sitter_app/screens/ViewProfile.dart';
-// import 'package:baby_sitter_app/screens/splashscreen2.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_database/firebase_database.dart';
-// import 'package:firebase_database/ui/firebase_animated_list.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:babycare/screens/booking.dart';
+import 'package:babycare/screens/parentProfile.dart';
+import 'package:babycare/screens/parent_notifier.dart';
+import 'package:babycare/screens/sitterProfile.dart';
+import 'package:babycare/screens/splashscreen2.dart';
+import 'package:babycare/screens/viewProfil.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-// import '../customWidgets/Custombutton.dart';
-
-// class HomePage extends StatefulWidget {
-//   HomePage({Key? key}) : super(key: key);
-
-//   @override
-//   State<HomePage> createState() => _HomePageState();
-// }
-
-// class _HomePageState extends State<HomePage> {
-//   String BabySitterName = 'Enter name';
-//   final database = FirebaseDatabase.instance.ref;
-//   String photourl = '';
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     activateListeners(context);
-//     nameUpdate(context);
-//   }
-
-//   void nameUpdate(BuildContext context) {
-//     database.call('Sitter Details/name').onValue.listen((event) {
-//       final Object? NameofSitter = event.snapshot.value;
-//       setState(() {
-//         BabySitterName = '$NameofSitter';
-//       });
-//     });
-//   }
-
-//   void activateListeners(BuildContext context) {
-//     database
-//         .call('Sitter Details/SitterPhofilePhotoUrl')
-//         .onValue
-//         .listen((event) {
-//       final Object? NameofSitter = event.snapshot.value;
-//       setState(() {
-//         photourl = '$NameofSitter';
-//         print("this is photo path" + photourl);
-//       });
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     bool _islogged = false;
-//     late GoogleSignInAccount _userObj;
-
-//     GoogleSignIn _googleSignIn = GoogleSignIn();
-//     final user = FirebaseAuth.instance.currentUser!;
-//     final Babysitter_description = database.call('PersonInputInfo');
-//     return Scaffold(
-//       appBar: AppBar(
-//           title: Text(
-//               // 'Hello ${user.displayName}',
-//               ''
-//               // style: GoogleFonts.praise(
-//               //   textStyle: TextStyle(fontSize: 20),
-//               // ),
-//               ),
-//           centerTitle: true,
-//           backgroundColor: Colors.transparent,
-//           elevation: 0,
-//           actions: [
-//             IconButton(
-//               onPressed: () async {
-//                 await FirebaseAuth.instance.signOut();
-//                 _googleSignIn.signOut().then((value) {
-//                   setState(() {
-//                     _islogged = false;
-//                   });
-//                 }).catchError((e) {
-//                   print('Did not log out $e');
-//                 });
-
-//                 final pref = await SharedPreferences.getInstance();
-//                 pref.setBool('HomePage', false);
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (context) => Splashscreen1(),
-//                   ),
-//                 );
-//               },
-//               icon: Icon(Icons.logout),
-//             ),
-//           ]),
-//       backgroundColor: Colors.purple,
-//       body: Stack(
-//         children: [
-//           Align(
-//             alignment: Alignment.bottomCenter,
-//             child: Container(
-//               width: MediaQuery.of(context).size.width,
-//               height: MediaQuery.of(context).size.height - 150,
-//               decoration: BoxDecoration(
-//                 color: Colors.white,
-//                 borderRadius: BorderRadius.only(
-//                   topLeft: Radius.circular(30),
-//                   topRight: Radius.circular(30),
-//                 ),
-//               ),
-//               child: Stack(
-//                 children: [
-//                   Center(
-//                     child: SingleChildScrollView(
-//                       scrollDirection: Axis.vertical,
-//                       child: Container(
-//                         child: Column(
-//                           mainAxisAlignment: MainAxisAlignment.center,
-//                           crossAxisAlignment: CrossAxisAlignment.center,
-//                           children: [
-//                             // ProfilePreview(
-//                             //     photourl, '4.8', BabySitterName, context),
-//                             // ProfilePreview('assets/niki.png', '4.7',
-//                             //     'Starlet Watson', context),
-//                             // ProfilePreview('assets/starlet.png', '4.7',
-//                             //     'Starlet Watson', context),
-//                             // ProfilePreview('assets/watson.png', '4.7',
-//                             //     'Starlet Nikita', context),
-//                             FirebaseAnimatedList(
-//                               query: Babysitter_description,
-//                               itemBuilder: (BuildContext context,
-//                                   DataSnapshot snapshot,
-//                                   Animation<double> animation,
-//                                   int index) {
-//                                 Map contact = Map<String, dynamic>.from(
-//                                     snapshot.value as Map);
-
-//                                 return ProfilePreview(
-//                                     contact, 'assets/niki.png', '4.8', context);
-//                               },
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   // Align(
-//                   //   alignment: Alignment.center,
-//                   //   child: ListView(
-//                   //     children: [
-//                   //       Container(
-//                   //         width: 200,
-//                   //         height: 200,
-//                   //         color: Colors.red,
-//                   //       ),
-//                   //     ],
-//                   //   ),
-//                   // )
-//                   Align(
-//                     alignment: Alignment.topLeft,
-//                     child: Padding(
-//                       padding: const EdgeInsets.all(20.0),
-//                       child: Text(
-//                         'Baby Care+',
-//                         style: GoogleFonts.praise(
-//                           color: Colors.pink,
-//                           fontSize: 40,
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget ProfilePreview(Map? contact, SitterImage, Rating,
-//       /*BabysitterName*/ BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(8.0),
-//       child: Container(
-//         width: MediaQuery.of(context).size.width - 50,
-//         height: 212,
-//         decoration: BoxDecoration(
-//             color: Color(0xffEEF1F5), borderRadius: BorderRadius.circular(20)),
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [
-//                 Text(
-//                   // BabysitterName,
-//                   contact!['name'],
-//                   // BabySitterName,
-//                   style: TextStyle(
-//                     fontSize: 20,
-//                     color: Color(0xff6043F5),
-//                   ),
-//                 ),
-//                 Row(
-//                   children: [
-//                     Icon(Icons.star),
-//                     Text(
-//                       Rating,
-//                       style: TextStyle(
-//                         fontSize: 20,
-//                         color: Color(0xff6043F5),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 ElevatedButton(
-//                   onPressed: () {
-//                     Navigator.push(
-//                       context,
-//                       (MaterialPageRoute(
-//                         builder: (context) => ViewProf(),
-//                       )),
-//                     );
-//                   },
-//                   child: Text('View Profile'),
-//                 ),
-//                 // customallBtn(Color(0xff6043F5),'View Profile',context),
-//               ],
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Container(
-//                 // child: Image.network(SitterImage),
-//                 child: Image.asset(SitterImage),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// import 'package:baby_sitter_app/services/authservices.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 
+import '../models/booking.dart';
+
+int _selectedIndex = 0;
+const TextStyle optionStyle =
+    TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+List<Widget> _widgetOptions = <Widget>[
+  Home(),
+  BookingStatus(),
+  ParentProfile(),
+];
+
+
+
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.email}) : super(key: key);
+  final String email;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final contactinfo = FirebaseDatabase.instance
-      .ref()
-      .child('PersonInputInfo')
-      .orderByChild('firstname');
+  String photourl = '';
 
-  Widget contactdetail({Map? contact}) {
-    return Container(
-      height: 100,
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.person),
-              SizedBox(
-                height: 6,
-              ),
-              Text(
-                contact!['firstname'],
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
-  // List<Object> contactinfo=[];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Landing here'),
-      ),
-      body: Center(
-        child: FirebaseAnimatedList(
-          query: contactinfo,
-          itemBuilder: (BuildContext context, DataSnapshot snapshot,
-              Animation<double> animation, int index) {
-            Map contact = Map<String, dynamic>.from(snapshot.value as Map);
+          title: const Text(''),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add_alert),
+              tooltip: 'Show Notifications',
+              onPressed: () {
+                Navigator.push(
+                  context,
+              (MaterialPageRoute(
+                  builder: (context) => const NotificationStatus())));
+              },
+            ),
+            IconButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                print("Logout");
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Logout"),
+                ));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Splashscreen1()),
+                );
+              },
+              icon: const Icon(Icons.logout),
+            ),
+          ]),
+      backgroundColor: const Color(0xff693EFF),
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book_outlined),
+            label: 'Booking',
+            backgroundColor: Colors.purple,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Profile',
+            backgroundColor: Colors.purple,
+          ),
 
-            return contactdetail(contact: contact);
-          },
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class SingleBabySitter extends StatelessWidget {
+  const SingleBabySitter({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: MediaQuery.of(context).size.width - 50,
+        decoration: BoxDecoration(
+            color: const Color(0xffEEF1F5),
+            borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  // BabysitterName,
+                  'Baby Sitter name',
+                  // BabySitterName,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xff6043F5),
+                  ),
+                ),
+                Row(
+                  children: const [
+                    Icon(Icons.star),
+                    Text(
+                      '4.7',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Color(0xff6043F5),
+                      ),
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Navigator.push(
+                    //   context,
+                    //   (MaterialPageRoute(
+                    //     builder: (context) => ViewProf(),
+                    //   )),
+                    // );
+                  },
+                  child: const Text('View Profile'),
+                ),
+                // customallBtn(Color(0xff6043F5),'View Profile',context),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                // child: Image.network(SitterImage),
+                child: Image.asset('assets/niki.png'),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
+class Home extends StatefulWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final email =  FirebaseAuth.instance.currentUser!.email;
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  @override
+  Widget build(BuildContext context) {
+    print (widget.email);
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(70)),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 30.0, left: 30.0, bottom: 10),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Baby Sitters',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Color(0xff6043F5),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              FutureBuilder<QuerySnapshot>(
+                future: FirebaseFirestore.instance
+                    .collection("users")
+                    .where('userType', isEqualTo: 'sitter')
+                    .get(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text("Error: ${snapshot.error}"),
+                    );
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(
+                          children: snapshot.data!.docs.map((document) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width - 50,
+                            decoration: BoxDecoration(
+                                color: const Color(0xffFFEBFC),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      document['name'],
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xff6043F5),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.star),
+                                        Text(
+                                          document['rating'],
+                                          style: const TextStyle(
+                                            fontSize: 10,
+                                            color: Color(0xff6043F5),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          (MaterialPageRoute(
+                                            builder: (context) => ViewProf(
+                                                nameofSitter: document["name"],
+                                                emailofSitter:
+                                                    document["email"],
+                                              parentEmail: widget.email?? "",
+                                                ),
+                                          )),
+                                        );
+                                      },
+                                      child: const Text('View Profile'),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset('assets/niki.png'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList()),
+                    );
+                  }
+
+                  // Loading State
+                  return Center(
+                    // ignore: sized_box_for_whitespace
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      child: const CircularProgressIndicator(
+                        strokeWidth: 2.0,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
