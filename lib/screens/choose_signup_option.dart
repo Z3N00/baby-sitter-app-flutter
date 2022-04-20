@@ -1,30 +1,23 @@
-import 'package:baby_sitter_app/Authetication/Googlesign.dart';
-import 'package:baby_sitter_app/SitterFile/SitterMainentery.dart';
-// import 'package:baby_sitter_app/screens/ClientMainEntry.dart';
-import 'package:baby_sitter_app/screens/create-account.dart';
+import 'package:babycare/screens/facebook_login.dart';
+import 'package:babycare/screens/login.dart';
+import 'package:babycare/screens/sing_up.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:get/route_manager.dart';
 
 import '../customWidgets/CustomWidgets.dart';
-// import '../customWidgets/Custombutton.dart';
-import '../screens ui/MainNav.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
-
+class ChooseAuthOption extends StatefulWidget {
+  const ChooseAuthOption({Key? key, required this.userType}) : super(key: key);
+  final String userType;
   @override
-  State<SignIn> createState() => _SignInState();
+  State<ChooseAuthOption> createState() => _ChooseAuthOptionState();
 }
 
-class _SignInState extends State<SignIn> {
-  Map? _userData;
-  AuthClass authClass = AuthClass();
+class _ChooseAuthOptionState extends State<ChooseAuthOption> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -41,14 +34,9 @@ class _SignInState extends State<SignIn> {
                     child: Text(
                       'Baby Care+',
                       style: GoogleFonts.praise(
-                        color: Color(0xff693EFF),
+                        color: const Color(0xff693EFF),
                         fontSize: 60,
                       ),
-                      //  TextStyle(
-
-                      //   color: Colors.purple,
-                      //   fontSize: 30,
-                      // ),
                     ),
                   )
                 ],
@@ -62,30 +50,41 @@ class _SignInState extends State<SignIn> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     customallBtn(
-                      Color(0xff6043F5),
-                      'Sign In With Email',
+                      const Color(0xff6043F5),
+                      'Sign Up with Email',
                       context,
                     ),
                     CustomizableBTN(
                       'assets/google.png',
-                      Color(0xff4285F4),
-                      'Sign Up With Google',
+                      const Color(0xff4285F4),
+                      'Will be added soon',
                       context,
                     ),
                     CustomizafbLogin(
                       'assets/fb.png',
-                      Color(0xff475993),
-                      'Sign Up With Facebook',
+                      const Color(0xff475993),
+                      'SignUp With Facebook',
                       context,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 100.0),
-                      child: Text(
-                        'Already have an Account? Sign Up',
-                        style: TextStyle(
-                          color: Color(0xff6043F5),
-                          fontWeight: FontWeight.w800,
-                          fontSize: 10,
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          (MaterialPageRoute(
+                            builder: (context) =>
+                                LoginPage(userType: widget.userType),
+                          )),
+                        );
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(top: 100.0),
+                        child: Text(
+                          'Already have an Account? Sign In',
+                          style: TextStyle(
+                            color: Color(0xff6043F5),
+                            fontWeight: FontWeight.w800,
+                            fontSize: 10,
+                          ),
                         ),
                       ),
                     ),
@@ -110,7 +109,9 @@ class _SignInState extends State<SignIn> {
         Navigator.push(
           context,
           (MaterialPageRoute(
-            builder: (context) => CreateAccount(),
+            builder: (context) => SignUpPage(
+              userType: widget.userType,
+            ),
           )),
         );
       },
@@ -128,17 +129,13 @@ class _SignInState extends State<SignIn> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Padding(
-                  //   padding: const EdgeInsets.only(right:15.0,top: 5,bottom: 5),
-                  //   child: Image.asset(image),
-                  // ),
                   Text(
                     inputTxt,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      // fontWeight: FontWeight.bold,
-                    ),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        fontFamily: 'Roboto'),
                   ),
                 ],
               ),
@@ -149,6 +146,7 @@ class _SignInState extends State<SignIn> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget CustomizafbLogin(
     image,
     color,
@@ -157,87 +155,11 @@ class _SignInState extends State<SignIn> {
   ) {
     return InkWell(
       onTap: () async {
-        // final results = await FacebookAuth.i.login(
-        //   permissions: ['public_profile', 'email'],
-        // );
-        // if (results.status == LoginStatus.success) {
-        //   final requestData = await FacebookAuth.i.getUserData(
-        //     fields: 'email,name',
-        //   );
-        //   setState(() {
-        //     _userData = requestData;
-        //   });
-        // }
-        // await authClass.googleSignInfun(context);
-
-
-
-        // Navigator.push(
-        //   context,
-        //   (MaterialPageRoute(builder: (context) => SitterMain())),
-        // );
-
-
-
-
-
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width - 100,
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: color,
-            ),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(right: 15.0, top: 5, bottom: 5),
-                    child: Image.asset(image),
-                  ),
-                  Text(
-                    inputTxt,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      // fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget CustomizableBTN(
-    image,
-    color,
-    inputTxt,
-    BuildContext context,
-  ) {
-    return InkWell(
-      onTap: () async {
-        await authClass.googleSignInfun(context);
         Navigator.push(
-          //unique key required.
-
-
-
           context,
-          (MaterialPageRoute(builder: (context) => MainNavigation(uniquekey: '',))),
-
-
-
-
+          (MaterialPageRoute(
+            builder: (context) => FbLogin(userType: widget.userType),
+          )),
         );
       },
       child: Padding(
@@ -255,17 +177,62 @@ class _SignInState extends State<SignIn> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
+                    padding: const EdgeInsets.only(
+                        right: 15.0, top: 5, bottom: 5, left: 4.0),
+                    child: Image.asset(image),
+                  ),
+                  Text(
+                    inputTxt,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        fontFamily: 'Roboto'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  Widget CustomizableBTN(
+    image,
+    color,
+    inputTxt,
+    BuildContext context,
+  ) {
+    return InkWell(
+      onTap: () async {},
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width - 100,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: color,
+            ),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
                     padding:
                         const EdgeInsets.only(right: 15.0, top: 5, bottom: 5),
                     child: Image.asset(image),
                   ),
                   Text(
                     inputTxt,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      // fontWeight: FontWeight.bold,
-                    ),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        fontFamily: 'Roboto'),
                   ),
                 ],
               ),
