@@ -1,4 +1,4 @@
-package com.example.babysitter_flutter
+package com.example.babycare
 
 import io.flutter.embedding.android.FlutterActivity
 
