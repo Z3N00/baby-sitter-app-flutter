@@ -1,96 +1,50 @@
-
-import 'package:baby_sitter_app/screens%20ui/MainNav.dart';
-// import 'package:baby_sitter_app/screens/ClientMainEntry.dart';
-
-import 'package:baby_sitter_app/screens/splashscreen2.dart';
+import 'package:babycare/screens/splashscreen2.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-import 'DBtest/home1.dart';
-
-
-void main() async {
+Future<void> main() async {
+  // AccessToken? _accessToken;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  final pref = await SharedPreferences.getInstance();
-  final HomePage = pref.getBool('HomePage') ?? false;
-  runApp(MyApp(HomePage: HomePage));
+  // _checkIfisLoggedIn() async {
+  //   final accessToken = await FacebookAuth.instance.accessToken;
 
+  //   if (accessToken != null) {
+  //     print(accessToken.toJson());
+  //     final userData = await FacebookAuth.instance.getUserData();
+  //     _accessToken = accessToken;
+  //   } else {}
+  // }
+  // _checkIfisLoggedIn();
+  runApp(const MyApp());
 }
 
-final GoogleSignIn _googlesignin = GoogleSignIn(scopes: ['email']);
-
 class MyApp extends StatelessWidget {
-
-  final bool HomePage;
-  MyApp({
-    Key? key,
-    required this.HomePage,
-  }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      title: 'BabyCare',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        primaryColor: Color(0xff693EFF)
+        primarySwatch: Colors.blue,
       ),
-      home: HomePage
-          ? MainNavigation()
-          : const Splashscreen1(), //main app entry point
-      // home:RealtimeDbTests(),
-    );
-  }
-}
-import 'package:baby_sitter_app/screens%20ui/MainNav.dart';
-// import 'package:baby_sitter_app/screens/ClientMainEntry.dart';
+      home: const Splashscreen1(),
 
-import 'package:baby_sitter_app/screens/splashscreen2.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-import 'DBtest/home1.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  final pref = await SharedPreferences.getInstance();
-  final HomePage = pref.getBool('HomePage') ?? false;
-  runApp(MyApp(HomePage: HomePage));
-}
-
-final GoogleSignIn _googlesignin = GoogleSignIn(scopes: ['email']);
-
-class MyApp extends StatelessWidget {
-  final bool HomePage;
-  MyApp({
-    Key? key,
-    required this.HomePage,
-  }) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        primaryColor: Color(0xff693EFF)
-      ),
-      home: HomePage
-          ? MainNavigation()
-          : const Splashscreen1(), //main app entry point
-      // home:RealtimeDbTests(),
 
     );
   }
 }
+
+
+
+// <application android:label="@string/app_name" ...>
+//     ...
+//    	<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+//    	<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+//     ...
+// </application>
