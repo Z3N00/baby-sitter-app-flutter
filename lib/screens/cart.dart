@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:babycare/screens/confirmBooking.dart';
 import 'package:babycare/screens/newNotification.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +8,14 @@ class CartScreen extends StatefulWidget {
   static String routeName = "/cart";
 
 
-  const CartScreen({Key? key, required this.startdate, required this.enddate, required this.nameofSitter, required this.emailofSitter, required this.parentEmail}) : super(key: key);
+  const CartScreen({Key? key, required this.startdate, required this.enddate, required this.nameofSitter, required this.emailofSitter, required this.parentEmail,  required this.dates}) : super(key: key);
 
   final String emailofSitter;
   final String parentEmail;
   final String nameofSitter;
   final String startdate;
   final String enddate;
+  final List<String> dates;
 
 
   @override
@@ -44,7 +47,7 @@ class _CartScreenState extends State<CartScreen> {
           padding: const EdgeInsets.all(16.0),
           textStyle: const TextStyle(fontSize: 20),
         ),onPressed: (){
-          GiftManager().create_booking(widget.parentEmail,widget.emailofSitter,widget.nameofSitter);
+          GiftManager().create_booking(widget.parentEmail,widget.emailofSitter,widget.nameofSitter,widget.dates);
           Navigator.push(context,MaterialPageRoute(builder: (context) =>ConfirmBooking(), ),);
         }, child: Text("Order"),),
       ),

@@ -1,11 +1,16 @@
 import 'package:babycare/screens/cart.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-
 class DateRanges extends StatefulWidget {
-  const DateRanges({Key? key, required this.nameofSitter, required this.emailofSitter, required this.parentEmail}) : super(key: key);
+  const DateRanges(
+      {Key? key,
+      required this.nameofSitter,
+      required this.emailofSitter,
+      required this.parentEmail})
+      : super(key: key);
 
   final String emailofSitter;
   final String parentEmail;
@@ -18,19 +23,67 @@ class DateRanges extends StatefulWidget {
 List<String> views = <String>['Month', 'Year', 'Decade', 'Century'];
 
 class SelectedDateRange extends State<DateRanges> {
+  late List<DateTime> _blackoutDates;
   late String _startDate, _endDate;
   final DateRangePickerController _controller = DateRangePickerController();
 
   @override
   void initState() {
     final DateTime today = DateTime.now();
-    _startDate = DateFormat('dd, MMMM yyyy').format(today).toString();
-    _endDate = DateFormat('dd, MMMM yyyy')
-        .format(today.add(Duration(days: 3)))
-        .toString();
+    _startDate = DateFormat('yyyy-MM-dd').format(today).toString();
+    _endDate = DateFormat('yyyy-MM-dd').format(today.add(Duration(days: 3))).toString();
     _controller.selectedRange =
         PickerDateRange(today, today.add(Duration(days: 3)));
+    _blackoutDates = [];
+    _getblackoutDates();
+
     super.initState();
+  }
+
+  _getblackoutDates()  async {
+    final List<DateTime> dates = <DateTime>[];
+    final CollectionReference users =
+    FirebaseFirestore.instance.collection('users');
+    var snapshot = await users.get();
+    snapshot.docs.forEach((element) {
+      Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
+      if (data != null && data['email'] == widget.emailofSitter) {
+        for (var i = 0; i < data['blackout'].length; i++) {
+          dates.add(DateTime.parse(data['blackout'][i]));
+        }
+
+        }
+
+
+      });
+
+    _blackoutDates = dates;
+    print("..............");
+
+    print(_blackoutDates);
+    print("..............");
+  }
+
+
+  // final DateTime blackoutDate = DateTime.now();
+  // dates.add(blackoutDate.add(Duration(days: 1)));
+  // dates.add(blackoutDate.add(Duration(days: 2)));
+  // dates.add(blackoutDate.add(Duration(days: 3)));
+  //
+  // return dates;
+  List<String> _generateBlackoutDates() {
+    var start = DateTime.parse(_startDate);
+    var end = DateTime.parse(_endDate);
+
+    final List<String> dates = <String>[];
+    for (int i = 0; i <= end.difference(start).inDays; i++) {
+      dates.add(start.add(Duration(days: i)).toString());
+    }
+
+
+    print(dates);
+    // dates.add(DateTime.parse("2022-04-23"));
+    return dates;
   }
 
   Widget build(BuildContext context) {
@@ -73,11 +126,12 @@ class SelectedDateRange extends State<DateRanges> {
                   controller: _controller,
                   selectionMode: DateRangePickerSelectionMode.range,
                   onSelectionChanged: selectionChanged,
+                  monthViewSettings: DateRangePickerMonthViewSettings(
+                      blackoutDates: _blackoutDates),
                   allowViewNavigation: false,
-                  enablePastDates: false
+                  enablePastDates: false,
                 ),
               ),
-
               Expanded(
                   child: Align(
                       alignment: Alignment.bottomCenter,
@@ -88,10 +142,17 @@ class SelectedDateRange extends State<DateRanges> {
                           height: 52.34,
                           child: ElevatedButton(
                             onPressed: () {
+
                               Navigator.push(
                                 context,
                                 (MaterialPageRoute(
-                                  builder: (context) =>  CartScreen(emailofSitter:widget.emailofSitter,parentEmail:widget.parentEmail,nameofSitter: widget.nameofSitter, startdate:_startDate,enddate:_endDate),
+                                  builder: (context) => new CartScreen(
+                                      emailofSitter: widget.emailofSitter,
+                                      parentEmail: widget.parentEmail,
+                                      nameofSitter: widget.nameofSitter,
+                                      startdate: _startDate,
+                                      enddate: _endDate,
+                                  dates:_generateBlackoutDates() ),
                                 )),
                               );
                             },
@@ -102,11 +163,8 @@ class SelectedDateRange extends State<DateRanges> {
                           ),
                         ),
                       )))
-
             ],
           ),
-
-
         ),
       ),
     );
@@ -115,8 +173,8 @@ class SelectedDateRange extends State<DateRanges> {
   void selectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
       _startDate =
-          DateFormat('dd, MMMM yyyy').format(args.value.startDate).toString();
-      _endDate = DateFormat('dd, MMMM yyyy')
+          DateFormat('yyyy-MM-dd').format(args.value.startDate).toString();
+      _endDate = DateFormat('yyyy-MM-dd')
           .format(args.value.endDate ?? args.value.startDate)
           .toString();
     });

@@ -14,7 +14,7 @@ class GiftManager {
 
   Future getGiftItemList() async {
     final CollectionReference gifts =
-    FirebaseFirestore.instance.collection('booking');
+        FirebaseFirestore.instance.collection('booking');
     try {
       giftItems.clear();
       var snapshot = await gifts.get();
@@ -41,7 +41,6 @@ class GiftManager {
     }
   }
 
-
   // Future<void> update(String id) async {
   //
   // return FirebaseFirestore.instance.collection('booking').document(id).updateData(data);
@@ -53,37 +52,55 @@ class GiftManager {
     return true;
   }
 
+  // List <String> get_blackout_dates(emailofSitter) async {
+  //   List <String> dates_ = [];
+  //   final CollectionReference users =
+  //       FirebaseFirestore.instance.collection('users');
+  //   var snapshot = await users.get();
+  //   snapshot.docs.forEach((element) {
+  //     Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
+  //     if (data != null && data['email'] == emailofSitter) {
+  //       dates_ =  data["blackout"];
+  //       return dates_;
+  //     }
+  //   });
+  // }
 
-  Future create_booking(parent_email, emailofSitter, parent_name) async {
-
-    FirebaseFirestore.instance.collection('booking').add(
-        {
-          "status": "Pending",
-          "sitterId": emailofSitter,
-          "name": parent_name,
-          "email": parent_email,
-          "totalAmount": "25"
-
-        }).then((value){
-      print(value);
+  Future create_booking(parent_email, emailofSitter, parent_name, dates) async {
+    final CollectionReference users =
+        FirebaseFirestore.instance.collection('users');
+    var snapshot = await users.get();
+    snapshot.docs.forEach((element) {
+      Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
+      if (data != null && data['email'] == emailofSitter) {
+        users.doc(element.id).update({"blackout": dates});
+      }
     });
 
+    FirebaseFirestore.instance.collection('booking').add({
+      "status": "Pending",
+      "sitterId": emailofSitter,
+      "name": parent_name,
+      "email": parent_email,
+      "totalAmount": "25"
+    }).then((value) {
+      print(value);
+    });
   }
-
 }
 
-class BookingModel{
-  String? sitterId,status;
-BookingModel({this.sitterId,this.status});
+class BookingModel {
+  String? sitterId, status;
 
+  BookingModel({this.sitterId, this.status});
 }
 
-class BookingDetails{
+class BookingDetails {
   List<BookingModel> bookings = [];
 
   Future getBookingList() async {
     final CollectionReference gifts =
-    FirebaseFirestore.instance.collection('booking');
+        FirebaseFirestore.instance.collection('booking');
     try {
       bookings.clear();
       var snapshot = await gifts.get();
