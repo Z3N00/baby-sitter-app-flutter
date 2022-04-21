@@ -12,7 +12,7 @@ class GiftItem {
 class GiftManager {
   List<GiftItem> giftItems = [];
 
-  Future getGiftItemList() async {
+  Future getGiftItemList(email) async {
     final CollectionReference gifts =
         FirebaseFirestore.instance.collection('booking');
     try {
@@ -20,7 +20,7 @@ class GiftManager {
       var snapshot = await gifts.get();
       snapshot.docs.forEach((element) {
         Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
-        if (data != null && data['sitterId'] == "pant@grr.la") {
+        if (data != null && data['sitterId'] == email) {
           var booking = GiftItem();
           booking.name = data['name'];
           booking.price = data['totalAmount'];
@@ -34,6 +34,7 @@ class GiftManager {
           print("error:");
         }
       });
+      print(giftItems);
       return giftItems;
     } catch (e) {
       print("Error : ${e.toString()}");
@@ -95,10 +96,12 @@ class BookingModel {
   BookingModel({this.sitterId, this.status});
 }
 
+
+
 class BookingDetails {
   List<BookingModel> bookings = [];
 
-  Future getBookingList() async {
+  Future getBookingList(email) async {
     final CollectionReference gifts =
         FirebaseFirestore.instance.collection('booking');
     try {
@@ -106,7 +109,7 @@ class BookingDetails {
       var snapshot = await gifts.get();
       snapshot.docs.forEach((element) {
         Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
-        if (data != null && data['sitterId'] == "pant@grr.la") {
+        if (data != null && data['email'] == email) {
           var booking = BookingModel();
           booking.sitterId = data['sitterId'];
           booking.status = data['status'];
@@ -115,6 +118,8 @@ class BookingDetails {
           print("error:");
         }
       });
+
+      print(bookings);
       return bookings;
     } catch (e) {
       print("Error : ${e.toString()}");

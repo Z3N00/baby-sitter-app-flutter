@@ -32,7 +32,7 @@ class _SitterNotificationState extends State<SitterNotification> {
   }
 
   fetchGiftData() async {
-    dynamic result = await GiftManager().getGiftItemList();
+    dynamic result = await GiftManager().getGiftItemList(widget.email);
     if (result == null) {
       print("Gift list null");
     } else {

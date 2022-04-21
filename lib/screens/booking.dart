@@ -1,5 +1,6 @@
 import 'package:babycare/screens/BookingStatus_card.dart';
 import 'package:babycare/screens/newNotification.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BookingStatus extends StatefulWidget {
@@ -12,6 +13,7 @@ class BookingStatus extends StatefulWidget {
 class _BookingStatusState extends State<BookingStatus> {
 
 
+  final email =  FirebaseAuth.instance.currentUser!.email;
 
   List<BookingModel> bookings = [];
 
@@ -25,7 +27,7 @@ class _BookingStatusState extends State<BookingStatus> {
   }
 
   fetchGiftData() async {
-    dynamic result = await BookingDetails().getBookingList();
+    dynamic result = await BookingDetails().getBookingList(this.email);
     if (result == null) {
       print("Gift list null");
     } else {
@@ -39,32 +41,13 @@ class _BookingStatusState extends State<BookingStatus> {
   Widget build(BuildContext context) {
     return Container(
       margin: new EdgeInsets.only(top: 10,bottom: 10),
-      child:Column(
-        children: [
-          ListView(
-            padding: EdgeInsets.all(8),
-            shrinkWrap: true,
-            // physics: NeverScrollableScrollPhysics(),
-            children: [
-              Container(
-                // margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount:bookings.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisSpacing: 20.0,
-                    crossAxisSpacing: 20.0,
-                  ),
-                  itemBuilder: (context, index) =>BookingStatusCard(bookingModel: bookings[index],),
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
+      child: ListView.builder(
+          itemCount: bookings.length,
+          padding: const EdgeInsets.only(top: 10.0),
+          itemBuilder: (context, index) {
+            return BookingStatusCard(bookingModel: bookings[index],);
+          })
+      );
   }
 }
 

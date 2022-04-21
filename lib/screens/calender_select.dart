@@ -58,10 +58,6 @@ class SelectedDateRange extends State<DateRanges> {
       });
 
     _blackoutDates = dates;
-    print("..............");
-
-    print(_blackoutDates);
-    print("..............");
   }
 
 
