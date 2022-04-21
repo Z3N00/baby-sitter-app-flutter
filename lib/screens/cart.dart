@@ -4,11 +4,24 @@ import 'package:flutter/material.dart';
 class CartScreen extends StatefulWidget {
   static String routeName = "/cart";
 
+
+  const CartScreen({Key? key, required this.startdate, required this.enddate, required this.nameofSitter, required this.emailofSitter, required this.parentEmail}) : super(key: key);
+
+  final String emailofSitter;
+  final String parentEmail;
+  final String nameofSitter;
+  final String startdate;
+  final String enddate;
+
+
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-void main() => runApp(DateRanges());
 
 class DateRanges extends StatefulWidget {
+  const DateRanges({Key? key, required this.nameofSitter, required this.emailofSitter, required this.parentEmail}) : super(key: key);
+
+  final String emailofSitter;
+  final String parentEmail;
+  final String nameofSitter;
+
   @override
   SelectedDateRange createState() => SelectedDateRange();
 }
@@ -86,7 +91,7 @@ class SelectedDateRange extends State<DateRanges> {
                               Navigator.push(
                                 context,
                                 (MaterialPageRoute(
-                                  builder: (context) =>  CartScreen(),
+                                  builder: (context) =>  CartScreen(emailofSitter:widget.emailofSitter,parentEmail:widget.parentEmail,nameofSitter: widget.nameofSitter, startdate:_startDate,enddate:_endDate),
                                 )),
                               );
                             },
