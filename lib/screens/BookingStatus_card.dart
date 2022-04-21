@@ -41,7 +41,6 @@ class _BookingStatusCardState extends State<BookingStatusCard> {
                           flex: 5,
                           child: ListTile(
                             title: Text(widget.bookingModel.sitterId.toString()),
-                            subtitle: Text("Ed Sheeran"),
                           ),
                         ),
                         Expanded(
