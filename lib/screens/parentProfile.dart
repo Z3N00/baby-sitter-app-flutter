@@ -25,18 +25,18 @@ class _ParentProfileState extends State<ParentProfile> {
     uname = firebaseUser.displayName ?? "test";
     phone = firebaseUser.phoneNumber as int? ?? 5148851994;
     address = "test data";
-    if (firebaseUser != null) {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((ds) {
-
-        uname = ds.data()!["name"];
-      }).catchError((e) {
-        print(e);
-      });
-    }
+    // if (firebaseUser != null) {
+    //   await FirebaseFirestore.instance
+    //       .collection('users')
+    //       .doc(firebaseUser.uid)
+    //       .get()
+    //       .then((ds) {
+    //
+    //     uname = ds.data()!["name"];
+    //   }).catchError((e) {
+    //     print(e);
+    //   });
+    // }
   }
 
 
