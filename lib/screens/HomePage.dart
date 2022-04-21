@@ -1,3 +1,4 @@
+import 'package:babycare/screens/booking.dart';
 import 'package:babycare/screens/parentProfile.dart';
 import 'package:babycare/screens/sitterProfile.dart';
 import 'package:babycare/screens/viewProfil.dart';
@@ -6,12 +7,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
+import '../models/booking.dart';
+
 int _selectedIndex = 0;
 const TextStyle optionStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
 List<Widget> _widgetOptions = <Widget>[
   Home(),
+  BookingStatus(),
   ParentProfile(),
 ];
 
@@ -66,10 +70,16 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.add_alert ),
+            label: 'Notification',
+            backgroundColor: Colors.purple,
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
             label: 'Profile',
             backgroundColor: Colors.purple,
           ),
+
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
