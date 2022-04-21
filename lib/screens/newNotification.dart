@@ -54,16 +54,20 @@ class GiftManager {
   }
 
 
-  Future create_booking(parent_email, babysitter_email, parent_name) async {
+  Future create_booking(parent_email, emailofSitter, parent_name) async {
+
     FirebaseFirestore.instance.collection('booking').add(
         {
           "status": "Pending",
-          "sitterId": babysitter_email,
+          "sitterId": emailofSitter,
           "name": parent_name,
           "email": parent_email,
           "totalAmount": "25"
-        });
-    return true;
+
+        }).then((value){
+      print(value);
+    });
+
   }
 
 }

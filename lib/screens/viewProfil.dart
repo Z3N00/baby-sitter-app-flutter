@@ -200,7 +200,7 @@ class _ViewProfState extends State<ViewProf> {
                           Navigator.push(
                             context,
                             (MaterialPageRoute(
-                              builder: (context) => DateRanges(emailofSitter:widget.emailofSitter,parentEmail:widget.parentEmail,nameofSitter: widget.nameofSitter),
+                              builder: (context) =>new  DateRanges(emailofSitter:widget.emailofSitter,parentEmail:widget.parentEmail,nameofSitter: widget.nameofSitter),
                             )),
                           );
                         },

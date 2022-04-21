@@ -1,4 +1,5 @@
 import 'package:babycare/screens/confirmBooking.dart';
+import 'package:babycare/screens/newNotification.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatefulWidget {
@@ -43,6 +44,7 @@ class _CartScreenState extends State<CartScreen> {
           padding: const EdgeInsets.all(16.0),
           textStyle: const TextStyle(fontSize: 20),
         ),onPressed: (){
+          GiftManager().create_booking(widget.parentEmail,widget.emailofSitter,widget.nameofSitter);
           Navigator.push(context,MaterialPageRoute(builder: (context) =>ConfirmBooking(), ),);
         }, child: Text("Order"),),
       ),
