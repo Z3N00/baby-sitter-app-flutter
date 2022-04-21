@@ -1,4 +1,5 @@
 import 'package:babycare/screens/BookingStatus_card.dart';
+import 'package:babycare/screens/newNotification.dart';
 import 'package:flutter/material.dart';
 
 class BookingStatus extends StatefulWidget {
@@ -9,13 +10,37 @@ class BookingStatus extends StatefulWidget {
 }
 
 class _BookingStatusState extends State<BookingStatus> {
+
+
+
+  List<BookingModel> bookings = [];
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    fetchGiftData();
+
+  }
+
+  fetchGiftData() async {
+    dynamic result = await BookingDetails().getBookingList();
+    if (result == null) {
+      print("Gift list null");
+    } else {
+      setState(() {
+        bookings = result;
+
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: new EdgeInsets.only(top: 10,bottom: 10),
       child:Column(
         children: [
-
           ListView(
             padding: EdgeInsets.all(8),
             shrinkWrap: true,
@@ -26,13 +51,13 @@ class _BookingStatusState extends State<BookingStatus> {
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount:1,
+                  itemCount:bookings.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
                     mainAxisSpacing: 20.0,
                     crossAxisSpacing: 20.0,
                   ),
-                  itemBuilder: (context, index) =>BookingStatusCard()
+                  itemBuilder: (context, index) =>BookingStatusCard(bookingModel: bookings[index],),
                 ),
               )
             ],

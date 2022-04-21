@@ -66,12 +66,12 @@ class _HomePageState extends State<HomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Booking',
+            label: 'Home',
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_alert ),
-            label: 'Notification',
+            icon: Icon(Icons.book_outlined),
+            label: 'Booking',
             backgroundColor: Colors.purple,
           ),
           BottomNavigationBarItem(

@@ -71,3 +71,37 @@ class GiftManager {
   }
 
 }
+
+class BookingModel{
+  String? sitterId,status;
+BookingModel({this.sitterId,this.status});
+
+}
+
+class BookingDetails{
+  List<BookingModel> bookings = [];
+
+  Future getBookingList() async {
+    final CollectionReference gifts =
+    FirebaseFirestore.instance.collection('booking');
+    try {
+      bookings.clear();
+      var snapshot = await gifts.get();
+      snapshot.docs.forEach((element) {
+        Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
+        if (data != null && data['sitterId'] == "pant@grr.la") {
+          var booking = BookingModel();
+          booking.sitterId = data['sitterId'];
+          booking.status = data['status'];
+          bookings.add(booking);
+        } else {
+          print("error:");
+        }
+      });
+      return bookings;
+    } catch (e) {
+      print("Error : ${e.toString()}");
+      return [];
+    }
+  }
+}
