@@ -42,7 +42,7 @@ class LoginPageState extends State<LoginPage> {
             context,
             (MaterialPageRoute(
 
-              builder: (context) => const HomePage(),
+              builder: (context) =>  HomePage(email: emaily,),
             )),
           );
         }

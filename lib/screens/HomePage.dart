@@ -1,4 +1,3 @@
-
 import 'package:babycare/screens/parentProfile.dart';
 import 'package:babycare/screens/sitterProfile.dart';
 import 'package:babycare/screens/viewProfil.dart';
@@ -7,11 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-
-
 int _selectedIndex = 0;
- const TextStyle optionStyle =
-TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+const TextStyle optionStyle =
+    TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
 List<Widget> _widgetOptions = <Widget>[
   Home(),
@@ -19,8 +16,10 @@ List<Widget> _widgetOptions = <Widget>[
 ];
 
 
+
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.email}) : super(key: key);
+  final String email;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -34,6 +33,8 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +60,6 @@ class _HomePageState extends State<HomePage> {
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
             label: 'Booking',
@@ -70,7 +70,6 @@ class _HomePageState extends State<HomePage> {
             label: 'Profile',
             backgroundColor: Colors.purple,
           ),
-
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
@@ -151,15 +150,18 @@ class SingleBabySitter extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final email =  FirebaseAuth.instance.currentUser!.email;
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+
   @override
   Widget build(BuildContext context) {
+    print (widget.email);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(top: 10.0),
@@ -200,65 +202,66 @@ class _HomeState extends State<Home> {
                       scrollDirection: Axis.horizontal,
                       child: Column(
                           children: snapshot.data!.docs.map((document) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width - 50,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffFFEBFC),
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Row(
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width - 50,
+                            decoration: BoxDecoration(
+                                color: const Color(0xffFFEBFC),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                    Text(
+                                      document['name'],
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xff6043F5),
+                                      ),
+                                    ),
+                                    Row(
                                       children: [
+                                        const Icon(Icons.star),
                                         Text(
-                                          document['name'],
+                                          document['rating'],
                                           style: const TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 10,
                                             color: Color(0xff6043F5),
                                           ),
                                         ),
-                                        Row(
-                                          children: [
-                                            const Icon(Icons.star),
-                                            Text(
-                                              document['rating'],
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                color: Color(0xff6043F5),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              (MaterialPageRoute(
-                                                builder: (context) => ViewProf(
-                                                  nameofSitter: 'Nikita Johnes',
-                                                  parentKey: 'DDDFf2',
-                                                  uniquekey: 'eewee3',
-                                                ),
-                                              )),
-                                            );
-                                          },
-                                          child: const Text('View Profile'),
-                                        ),
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.asset('assets/niki.png'),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          (MaterialPageRoute(
+                                            builder: (context) => ViewProf(
+                                                nameofSitter: document["name"],
+                                                emailofSitter:
+                                                    document["email"],
+                                              parentEmail: widget.email?? "",
+                                                ),
+                                          )),
+                                        );
+                                      },
+                                      child: const Text('View Profile'),
                                     ),
                                   ],
                                 ),
-                              ),
-                            );
-                          }).toList()),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset('assets/niki.png'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList()),
                     );
                   }
 

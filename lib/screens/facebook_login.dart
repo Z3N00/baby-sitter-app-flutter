@@ -203,7 +203,7 @@ class _FbLoginState extends State<FbLogin> {
                                           context,
                                           (MaterialPageRoute(
                                             builder: (context) =>
-                                                const HomePage(),
+                                                const HomePage(email: "",),
                                           )),
                                         ): Navigator.push(
                                           context,

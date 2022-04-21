@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'calender_select.dart';
+
 // import '../Dates/dates.dart';
 // import '../screens ui/Availability.dart';
 
@@ -12,20 +13,18 @@ import 'calender_select.dart';
 // import 'chooseServices.dart';
 
 class ViewProf extends StatefulWidget {
-  ViewProf(
-      {Key? key,
-      required this.nameofSitter,
-      required this.uniquekey,
-      required this.parentKey})
+  ViewProf({Key? key, required this.nameofSitter,required this.parentEmail, required this.emailofSitter})
       : super(key: key);
-  String parentKey;
+  String emailofSitter;
   String nameofSitter;
-  String uniquekey;
+  String parentEmail;
 
   @override
   State<ViewProf> createState() => _ViewProfState();
 }
+
 List<String> views = <String>['Month', 'Year', 'Decade', 'Century'];
+
 class _ViewProfState extends State<ViewProf> {
   late DateTime date;
 
@@ -36,6 +35,10 @@ class _ViewProfState extends State<ViewProf> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.nameofSitter);
+    print(widget.emailofSitter);
+    print(widget.parentEmail);
+
     return Scaffold(
       body: Column(
         children: [
@@ -197,7 +200,7 @@ class _ViewProfState extends State<ViewProf> {
                           Navigator.push(
                             context,
                             (MaterialPageRoute(
-                              builder: (context) =>  DateRanges(),
+                              builder: (context) => DateRanges(),
                             )),
                           );
                         },
@@ -239,7 +242,6 @@ class SingleReview extends StatelessWidget {
           style: TextStyle(
             fontFamily: 'Roboto',
             fontSize: 15,
-  
           ),
         ),
       ),

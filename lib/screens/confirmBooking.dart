@@ -17,7 +17,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
     Timer(
         Duration(seconds: 3),
             () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => HomePage())));
+            builder: (BuildContext context) => HomePage(email:""))));
   }
   @override
   Widget build(BuildContext context) {

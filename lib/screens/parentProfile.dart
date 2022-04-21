@@ -20,12 +20,18 @@ class _ParentProfileState extends State<ParentProfile> {
 
   fetchUser() async {
     final firebaseUser = await FirebaseAuth.instance.currentUser!;
+    print(firebaseUser);
+    email = firebaseUser.email;
+    uname = firebaseUser.displayName ?? "test";
+    phone = firebaseUser.phoneNumber as int? ?? 5148851994;
+    address = "test data";
     if (firebaseUser != null) {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(firebaseUser.uid)
           .get()
           .then((ds) {
+
         uname = ds.data()!["name"];
       }).catchError((e) {
         print(e);
@@ -112,7 +118,7 @@ class _ParentProfileState extends State<ParentProfile> {
                 height: 20,
               ),
               TextWidget(name: "Phone No.", color: Colors.grey),
-              TextWidget(name:phone.toString(), color: Color(0xff6043F5)),
+              TextWidget(name: phone.toString(), color: Color(0xff6043F5)),
             ],
         ),
       ),
