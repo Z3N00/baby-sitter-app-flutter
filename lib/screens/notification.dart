@@ -12,7 +12,6 @@ import 'newNotification.dart';
 
 class SitterNotification extends StatefulWidget {
    SitterNotification({Key? key}) : super(key: key);
-
   @override
   State<SitterNotification> createState() => _SitterNotificationState();
 }
@@ -40,7 +39,6 @@ class _SitterNotificationState extends State<SitterNotification> {
     } else {
       setState(() {
         giftItems = result;
-
       });
     }
   }
@@ -56,15 +54,14 @@ class _SitterNotificationState extends State<SitterNotification> {
         child: Column(
 
           children: [
-            Container(
-              height: 100,
-              width: double.infinity,
+            Expanded(
               child: ListView(
                 padding: EdgeInsets.all(8),
-                shrinkWrap: false,
+                shrinkWrap: true,
                 // physics: NeverScrollableScrollPhysics(),
                 children: [
                   Container(
+
                     // margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                     child: GridView.builder(
                       shrinkWrap: true,

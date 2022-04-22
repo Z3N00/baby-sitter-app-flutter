@@ -12,76 +12,129 @@ class SitterCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Expanded(
      // color: Colors.red,
       flex: 2,
       child:Column(
-
         children: [
           if(giftItem.status.toString() != "Pending")...[
-             Card(
+            //  Card(
+            //   child: Column(
+            //     mainAxisSize: MainAxisSize.min,
+            //     children: <Widget>[
+            //       Center(
+            //         child: ListTile(
+            //           leading: Container(
+            //             height: 50,
+            //             width: 50,
+            //             child: Image.asset("assets/niki.png"),
+            //           ),
+            //           title: Text(giftItem.name.toString()),
+            //           subtitle: Text(giftItem.email.toString()),
+            //         ),
+            //       ),
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.end,
+            //         children: <Widget>[
+            //           IconButton(
+            //             onPressed: () {
+            //               GiftManager().update_data(giftItem.id.toString());
+            //             },
+            //             icon: Icon(
+            //               Icons.check_circle,
+            //               color: Colors.black.withOpacity(0.5),
+            //               size: 18,
+            //             ),
+            //           ),
+            //           IconButton(
+            //             onPressed: () {},
+            //             icon: Icon(
+            //               Icons.cancel,
+            //               color: Colors.black.withOpacity(0.5),
+            //               size: 18,
+            //             ),
+            //           ),
+            //           const SizedBox(width: 8),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Column(
+              children: [
+                Image.asset("assets/niki.png"),
+              ],
+            ),
+            SizedBox(height: 20,),
+            Center(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    leading: Container(
-                      height: 50,
-                      width: 50,
-                      child: Image.asset("assets/niki.png"),
-                    ),
-                    title: Text(giftItem.name.toString()),
-                    subtitle: Text(giftItem.email.toString()),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          GiftManager().update_data(giftItem.id.toString());
-                        },
-                        icon: Icon(
-                          Icons.check_circle,
-                          color: Colors.black.withOpacity(0.5),
-                          size: 18,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.cancel,
-                          color: Colors.black.withOpacity(0.5),
-                          size: 18,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                    ],
-                  ),
+                children: [
+                  Text(giftItem.email.toString()),
+                  SizedBox(height: 20,),
+                  Text(giftItem.name.toString()),
                 ],
               ),
             ),
+            SizedBox(height: 20,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+               Row(
+                 children: [
+                 IconButton(
+                             onPressed: () {
+                               GiftManager().update_data(giftItem.id.toString());
+                             },
+                             icon: Icon(
+                               Icons.check_circle,
+                               color: Colors.black.withOpacity(0.5),
+                               size: 18,
+                             ),
+                           ),
+                   IconButton(
+                             onPressed: () {},
+                             icon: Icon(
+                               Icons.cancel,
+                               color: Colors.black.withOpacity(0.5),
+                               size: 18,
+                             ),
+                           ),
+                 ],
+               )
+              ],
+            ),
+
           ]
           else...[
             Expanded(
               flex: 2,
               child:  Card(
             child: Column(
-    mainAxisSize: MainAxisSize.min,
+    mainAxisSize: MainAxisSize.max,
     children: <Widget>[
-     ListTile(
-       leading: Container(
-         height: 50,
-         width: 50,
-         child: Image.asset("assets/niki.png"),
-       ),
-    subtitle: Text(giftItem.email.toString()),
-    title: Text(giftItem.name.toString()),
-    ),
-    Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: <Widget>[
-      Text("Accepted")
-    ],
+      Column(
+        children: [
+          Image.asset("assets/niki.png"),
+        ],
+      ),
+      SizedBox(height: 20,),
+      Center(
+        child: Column(
+          children: [
+            Text(giftItem.email.toString()),
+            SizedBox(height: 20,),
+            Text(giftItem.name.toString()),
+          ],
+        ),
+      ),
+      SizedBox(height: 20,),
+    Center(
+      child: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Text("Accepted")
+      ],
+      ),
     ),
     ],
     ),
