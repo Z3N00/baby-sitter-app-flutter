@@ -1,5 +1,6 @@
 import 'package:babycare/screens/booking.dart';
 import 'package:babycare/screens/parentProfile.dart';
+import 'package:babycare/screens/parent_notifier.dart';
 import 'package:babycare/screens/sitterProfile.dart';
 import 'package:babycare/screens/viewProfil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -51,8 +52,10 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: const Icon(Icons.add_alert),
               tooltip: 'Show Notifications',
-              onPressed: () {
-
+              onPressed: () {Navigator.push(
+                  context,
+              (MaterialPageRoute(
+                  builder: (context) => const NotificationStatus())));
               },
             ),
             IconButton(

@@ -73,27 +73,24 @@ class GiftManager {
   //   });
   // }
 
-  Future<String> checkNotification(email) async {
+  Future checkNotification(email) async {
     List<NotificationModel> Notifications = [];
-    final String NotificationStr = "ttt";
     final CollectionReference users =
     FirebaseFirestore.instance.collection('notifications');
     var snapshot = await users.get();
     snapshot.docs.forEach((element) {
       Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
-      if (data != null && data['email'] == email) {
+      if (data != null && data['email'] == "parent1@gmail.com") {
         var notify = NotificationModel();
         notify.name = data['name'];
         notify.email = data['email'];
         notify.message = data['message'];
+        print(data["message"]);
         Notifications.add(notify);
-        NotificationStr+data["message"]+"\n\n";
       }
 
     });
-    print(",,,,,,,,,,,,");
-    print(NotificationStr);
-    return NotificationStr;
+    return Notifications;
 
   }
 
