@@ -16,6 +16,15 @@ class _SitterCartState extends State<SitterCart> {
 
   @override
   Widget build(BuildContext context) {
+     Color _color = Colors.yellow;
+    if(widget.giftItem.status == "Confirmed"){
+      _color = Colors.green;
+    }
+    else if(widget.giftItem.status == "Rejected"){
+      _color = Colors.red;
+    }else{
+      _color = Colors.yellow;
+    }
 
     return SingleChildScrollView(
       // flex: 2,
@@ -24,10 +33,11 @@ class _SitterCartState extends State<SitterCart> {
         children: [
           if(widget.giftItem.status.toString() == "Pending")...[
             Container(
+
               child: Card(
                 child: Container(
                   height: 120,
-                  color: Colors.white,
+                  color: _color,
                   child: Row(
                     children: [
                       Center(
@@ -99,10 +109,12 @@ class _SitterCartState extends State<SitterCart> {
           ]
           else...[
             Container(
+
               child: Card(
                 child: Container(
+
                   height: 120,
-                  color: Colors.white,
+                  color:_color,
                   child: Row(
                     children: [
                       Center(
