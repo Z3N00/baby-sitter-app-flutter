@@ -62,7 +62,7 @@ class _SitterCartState extends State<SitterCart> {
                                 children: [
                                 IconButton(
                                             onPressed: () {
-                                              GiftManager().update_data(widget.giftItem.id.toString());
+                                              GiftManager().update_data(widget.giftItem.id.toString(),widget.giftItem.email.toString(),widget.giftItem.sitteremail.toString());
 
                                             },
                                             icon: Icon(
@@ -73,7 +73,7 @@ class _SitterCartState extends State<SitterCart> {
                                           ),
                                           IconButton(
                                             onPressed: () {
-                                              GiftManager().reject_data(widget.giftItem.id.toString());
+                                              GiftManager().reject_data(widget.giftItem.id.toString(),widget.giftItem.email.toString(),widget.giftItem.sitteremail.toString());
                                             },
                                             icon: Icon(
                                               Icons.cancel,
