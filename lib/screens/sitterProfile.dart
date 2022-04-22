@@ -11,7 +11,7 @@ class BabysitterProfile extends StatefulWidget{
 
 
 class _BabysitterProfileState extends State<BabysitterProfile> {
-  String? _address, _rph="35/h";
+  String? _address="Montreal Quebec, Canada", _rph="35/h";
   final TextEditingController _controller = TextEditingController();
 
   String _name = "Niki Singh";
