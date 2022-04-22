@@ -143,9 +143,12 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                           Row(
                             children: [
                               Container(
-                                width: 150,
+                              width: 150,
                               child: !_isEditable ?
-                              Text("Montreal, Quebec Canada")),
+                              Text("Montreal, Quebec Canada")
+                              : Text("data")
+                                  
+                              ),
                               Container(
 
                                 alignment: Alignment.center,
