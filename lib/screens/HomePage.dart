@@ -53,7 +53,8 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: const Icon(Icons.add_alert),
               tooltip: 'Show Notifications',
-              onPressed: () {Navigator.push(
+              onPressed: () {
+                Navigator.push(
                   context,
               (MaterialPageRoute(
                   builder: (context) => const NotificationStatus())));

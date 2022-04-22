@@ -12,21 +12,25 @@ class ParentProfile extends StatefulWidget {
 }
 final FirebaseAuth _auth = FirebaseAuth.instance;
 class _ParentProfileState extends State<ParentProfile> {
+
   String? uname ,email,address;
   int? phone;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUser();
+  }
+
   fetchUser() async {
     final firebaseUser = await _auth.currentUser!;
-    print("------------------------------");
     print(firebaseUser);
     email = firebaseUser.email;
     uname = firebaseUser.displayName ?? "test";
     phone = firebaseUser.phoneNumber as int? ?? 5148851994;
     address = "test data";
-    print("-------------------------------");
-
   }
-
   updateData() async{
     FirebaseFirestore.instance
         .collection('Users')

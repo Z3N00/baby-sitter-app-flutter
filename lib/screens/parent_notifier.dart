@@ -40,14 +40,19 @@ class _NotificationStatusState extends State<NotificationStatus> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: new EdgeInsets.only(top: 10,bottom: 10),
-        child: ListView.builder(
-            itemCount: notifications.length,
-            padding: const EdgeInsets.only(top: 10.0),
-            itemBuilder: (context, index) {
-              return NotificationStatusCard(notificationModel: notifications[index],);
-            })
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Notification status"),
+      ),
+      body: Container(
+          margin: new EdgeInsets.only(top: 10,bottom: 10),
+          child: ListView.builder(
+              itemCount: notifications.length,
+              padding: const EdgeInsets.only(top: 10.0),
+              itemBuilder: (context, index) {
+                return NotificationStatusCard(notificationModel: notifications[index],);
+              })
+      ),
     );
   }
 }
