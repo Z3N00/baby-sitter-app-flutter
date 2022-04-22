@@ -49,6 +49,13 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
           actions: [
             IconButton(
+              icon: const Icon(Icons.add_alert),
+              tooltip: 'Show Notifications',
+              onPressed: () {
+
+              },
+            ),
+            IconButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
                 print("Logout");
