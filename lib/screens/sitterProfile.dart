@@ -13,31 +13,39 @@ class BabysitterProfile extends StatefulWidget{
 
 class _BabysitterProfileState extends State<BabysitterProfile> {
   final email =  FirebaseAuth.instance.currentUser!.email;
-  String? _address="Montreal Quebec, Canada", _rph="35/h";
-  final TextEditingController _nameController = TextEditingController(text: "abc");
-  final TextEditingController _addressController = TextEditingController(text: "mo");
-  final TextEditingController _rphController = TextEditingController(text: "Enter rate per hour");
+  String? _name="Niki", _address="Montreal Quebec, Canada", _rph = "35/hr", _desc="I am a babysitter" ;
+  final TextEditingController _nameController = TextEditingController(text: "Enter Name");
+  final TextEditingController _addressController = TextEditingController(text: "Enter Address");
+  final TextEditingController _rphController = TextEditingController(text: "Enter rate");
   final TextEditingController _descriptionController = TextEditingController();
-
-  String _name = "Niki Singh";
 
   bool _isEditable = false;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  updateData() async{
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc('uid')
-        .update(
-        {
-          'name':_name ,'address':_address, 'rph': _rph
-        }).then((result){
-      print("new USer true");
-    }).catchError((onError){
-      print("onError");
-    });
+ getData() async{
+   FirebaseFirestore.instance
+       .collection('users')
+       .where("email", isEqualTo: email)
+       .snapshots()
+       .listen((data) =>
+       data.docs.forEach((doc) => {
+
+          _name = doc['name'],
+         _address = doc['address'],
+         _rph = doc['rate'],
+         _desc = doc['desc']
+           }
+       ));
+ }
+  @override
+  void initState() {
+    super.initState();
+
+    getData();
   }
+
+
 
 
 
@@ -121,7 +129,11 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                             Container(
                               width: 150,
                               child: !_isEditable
-                              ? Text(_name)
+                              ? Text(_name!,style: const TextStyle(
+                                  color: Color(0xff6043F5),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold
+                              ),)
                               :TextFormField(
                                 controller: _nameController,
                                 decoration: const InputDecoration(
@@ -149,7 +161,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                             Container(
                             width: 150,
                             child: !_isEditable ?
-                            Text("Montreal, Quebec Canada")
+                            Text(_address.toString())
                             : TextFormField(
                               controller: _addressController,
                               decoration: const InputDecoration(
@@ -180,7 +192,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                 Padding(
                     padding: const EdgeInsets.only(right: 250, bottom: 20),
                   child: !_isEditable ?
-                  Text("35/h")
+                  Text("Rate: " + _rph.toString())
                       : TextFormField(
                     controller: _rphController,
                     decoration: InputDecoration(
@@ -219,7 +231,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                             child: TextField(
                               controller: _descriptionController,
                               maxLines: 8,
-                              decoration: InputDecoration.collapsed(hintText: "Write Something here..."),
+                              decoration: InputDecoration.collapsed(hintText: _desc),
                             ),
                           )
                       )
