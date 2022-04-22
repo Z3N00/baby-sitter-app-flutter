@@ -113,6 +113,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                                    onFieldSubmitted: (value){
                                     setState(() => {_isEditable = false, _name=value});
                                    },
+
                                    style: const TextStyle(
                                     color: Color(0xff6043F5),
                                     fontSize: 20,
@@ -141,7 +142,10 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                           ),
                           Row(
                             children: [
-                              Text("Montreal, Quebec Canada"),
+                              Container(
+                                width: 150,
+                              child: !_isEditable ?
+                              Text("Montreal, Quebec Canada")),
                               Container(
 
                                 alignment: Alignment.center,
@@ -167,7 +171,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                   ),
 
                   Padding(
-                      padding: EdgeInsets.only(right: 250, bottom: 20),
+                      padding: const EdgeInsets.only(right: 250, bottom: 20),
                     child: Text("Rate per hour: ${_rph}"),
                   ),
 
@@ -207,7 +211,10 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                           backgroundColor: MaterialStateProperty.all<Color>(Color(0xff6043F5))
 
                         ),
-                        onPressed: () { },
+                        onPressed: () {
+
+                          updateData();
+                        },
                         child: const Text('Save'),
                       )
 
