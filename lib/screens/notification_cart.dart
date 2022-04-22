@@ -20,7 +20,7 @@ class SitterCart extends StatelessWidget {
 
         children: [
           if(giftItem.status.toString() == "Pending")...[
-             Card(
+             Container(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
