@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../models/notification.dart';
+
 class GiftItem {
   String? name, email;
   String? price;
@@ -73,6 +75,27 @@ class GiftManager {
   //   });
   // }
 
+  Future checkNotification(email) async {
+    List<NotificationModel> Notifications = [];
+    final CollectionReference users =
+    FirebaseFirestore.instance.collection('notifications');
+    var snapshot = await users.get();
+    snapshot.docs.forEach((element) {
+      Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
+      if (data != null && data['email'] == "parent1@gmail.com") {
+        var notify = NotificationModel();
+        notify.name = data['name'];
+        notify.email = data['email'];
+        notify.message = data['message'];
+        print(data["message"]);
+        Notifications.add(notify);
+      }
+
+    });
+    return Notifications;
+
+  }
+
   Future create_booking(parent_email, emailofSitter, parent_name, dates) async {
     final CollectionReference users =
         FirebaseFirestore.instance.collection('users');
@@ -100,6 +123,13 @@ class BookingModel {
   String? sitterId, status;
 
   BookingModel({this.sitterId, this.status});
+}
+
+
+class NotificationModel {
+  String? email, name,message;
+
+  NotificationModel({this.name, this.email,this.message});
 }
 
 

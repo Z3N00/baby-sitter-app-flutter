@@ -1,5 +1,6 @@
 import 'package:babycare/screens/booking.dart';
 import 'package:babycare/screens/parentProfile.dart';
+import 'package:babycare/screens/parent_notifier.dart';
 import 'package:babycare/screens/sitterProfile.dart';
 import 'package:babycare/screens/splashscreen2.dart';
 import 'package:babycare/screens/viewProfil.dart';
@@ -49,6 +50,16 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           actions: [
+            IconButton(
+              icon: const Icon(Icons.add_alert),
+              tooltip: 'Show Notifications',
+              onPressed: () {
+                Navigator.push(
+                  context,
+              (MaterialPageRoute(
+                  builder: (context) => const NotificationStatus())));
+              },
+            ),
             IconButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
