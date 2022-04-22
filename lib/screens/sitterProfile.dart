@@ -1,3 +1,4 @@
+import 'package:babycare/screens/newNotification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,28 +12,18 @@ class BabysitterProfile extends StatefulWidget{
 
 
 class _BabysitterProfileState extends State<BabysitterProfile> {
+  final email =  FirebaseAuth.instance.currentUser!.email;
   String? _address="Montreal Quebec, Canada", _rph="35/h";
-  final TextEditingController _nameController = TextEditingController(text: "Enter Your Name");
-  final TextEditingController _addressController = TextEditingController(text: "Enter your location");
+  final TextEditingController _nameController = TextEditingController(text: "abc");
+  final TextEditingController _addressController = TextEditingController(text: "mo");
   final TextEditingController _rphController = TextEditingController(text: "Enter rate per hour");
   final TextEditingController _descriptionController = TextEditingController();
 
   String _name = "Niki Singh";
+
   bool _isEditable = false;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  fetchUser() async {
-    final firebaseUser = await _auth.currentUser!;
-    print("------------------------------");
-    print(firebaseUser);
-    //email = firebaseUser.email;
-    _name = firebaseUser.displayName ?? "test";
-    //phone = firebaseUser.phoneNumber as int? ?? 5148851994;
-    _address = "test data";
-    _rph = "35/h";
-    print("-------------------------------");
-
-  }
 
   updateData() async{
     FirebaseFirestore.instance
@@ -47,21 +38,12 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
       print("onError");
     });
   }
-  //
-  // @override
-  // void dispose() {
-  //   // Clean up the controller when the widget is disposed.
-  //   _nameController.dispose();
-  //   _addressController.dispose();
-  //   _rphController.dispose();
-  //   _descriptionController.dispose();
-  //   super.dispose();
-  // }
 
 
 
   @override
   Widget build(BuildContext context) {
+
     // TODO: implement build
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -251,8 +233,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
 
                       ),
                       onPressed: () {
-
-                        updateData();
+                        GiftManager().update_user(_nameController.text, _rphController.text, email, _descriptionController.text, _addressController.text);
                       },
                       child: const Text('Save'),
                     )

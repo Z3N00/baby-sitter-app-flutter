@@ -116,6 +116,26 @@ class GiftManager {
 
   }
 
+
+  Future update_user(name, rate, email, desc,address) async {
+    print(name);
+    print(rate);
+    print(email);
+    print(desc);
+    print(address);
+
+
+
+    final CollectionReference users =
+    FirebaseFirestore.instance.collection('users');
+    var snapshot = await users.get();
+    snapshot.docs.forEach((element) {
+      Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
+      if (data != null && data['email'] == email) {
+        users.doc(element.id).update({"rate": rate,"name":name,"address":address,"description":desc});
+      }
+    });}
+
   Future create_booking(parent_email, emailofSitter, parent_name, dates) async {
     final CollectionReference users =
         FirebaseFirestore.instance.collection('users');
@@ -127,6 +147,10 @@ class GiftManager {
       }
     });
 
+
+
+
+
     FirebaseFirestore.instance.collection('booking').add({
       "status": "Pending",
       "sitterId": emailofSitter,
@@ -137,6 +161,8 @@ class GiftManager {
       print(value);
     });
   }
+
+
 }
 
 class BookingModel {
