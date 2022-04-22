@@ -2,6 +2,7 @@ import 'package:babycare/screens/booking.dart';
 import 'package:babycare/screens/parentProfile.dart';
 import 'package:babycare/screens/parent_notifier.dart';
 import 'package:babycare/screens/sitterProfile.dart';
+import 'package:babycare/screens/splashscreen2.dart';
 import 'package:babycare/screens/viewProfil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,7 +66,10 @@ class _HomePageState extends State<HomePage> {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text("Logout"),
                 ));
-                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Splashscreen1()),
+                );
               },
               icon: const Icon(Icons.logout),
             ),

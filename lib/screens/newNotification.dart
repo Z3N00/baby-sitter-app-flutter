@@ -1,5 +1,5 @@
-import 'package:babycare/models/notification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 class GiftItem {
   String? name, email;
   String? price;
@@ -121,13 +121,6 @@ class BookingModel {
   String? sitterId, status;
 
   BookingModel({this.sitterId, this.status});
-}
-
-
-class NotificationModel {
-  String? email, name,message;
-
-  NotificationModel({this.name, this.email,this.message});
 }
 
 
