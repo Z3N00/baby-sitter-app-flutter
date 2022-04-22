@@ -2,143 +2,157 @@ import 'package:babycare/screens/newNotification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SitterCart extends StatelessWidget {
+class SitterCart extends StatefulWidget {
   final GiftItem giftItem;
   const SitterCart({
     Key? key,
     required this.giftItem,
   }) : super(key: key);
 
+  @override
+  State<SitterCart> createState() => _SitterCartState();
+}
+
+class _SitterCartState extends State<SitterCart> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-     // color: Colors.red,
-      flex: 2,
+
+    return SingleChildScrollView(
+      // flex: 2,
       child:Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          if(giftItem.status.toString() != "Pending")...[
-            //  Card(
-            //   child: Column(
-            //     mainAxisSize: MainAxisSize.min,
-            //     children: <Widget>[
-            //       Center(
-            //         child: ListTile(
-            //           leading: Container(
-            //             height: 50,
-            //             width: 50,
-            //             child: Image.asset("assets/niki.png"),
-            //           ),
-            //           title: Text(giftItem.name.toString()),
-            //           subtitle: Text(giftItem.email.toString()),
-            //         ),
-            //       ),
-            //       Row(
-            //         mainAxisAlignment: MainAxisAlignment.end,
-            //         children: <Widget>[
-            //           IconButton(
-            //             onPressed: () {
-            //               GiftManager().update_data(giftItem.id.toString());
-            //             },
-            //             icon: Icon(
-            //               Icons.check_circle,
-            //               color: Colors.black.withOpacity(0.5),
-            //               size: 18,
-            //             ),
-            //           ),
-            //           IconButton(
-            //             onPressed: () {},
-            //             icon: Icon(
-            //               Icons.cancel,
-            //               color: Colors.black.withOpacity(0.5),
-            //               size: 18,
-            //             ),
-            //           ),
-            //           const SizedBox(width: 8),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            Column(
-              children: [
-                Image.asset("assets/niki.png"),
-              ],
-            ),
-            SizedBox(height: 20,),
-            Center(
-              child: Column(
-                children: [
-                  Text(giftItem.email.toString()),
-                  SizedBox(height: 20,),
-                  Text(giftItem.name.toString()),
-                ],
+          if(widget.giftItem.status.toString() == "Pending")...[
+            Container(
+              child: Card(
+                child: Container(
+                  height: 120,
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Expanded(
+                            child: Image.asset("assets/niki.png"),
+                            flex: 2,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.topLeft,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: ListTile(
+                                  title: Text("Email:${widget.giftItem.email.toString()}"),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: ListTile(
+                                  title: Text("Name : ${widget.giftItem.name.toString()}"),
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 5,
+                                  child: Row(
+                                children: [
+                                IconButton(
+                                            onPressed: () {
+                                              GiftManager().update_data(widget.giftItem.id.toString());
+                                                setState(()=>{
+
+                                                });
+                                            },
+                                            icon: Icon(
+                                              Icons.check_circle,
+                                              color: Colors.black.withOpacity(0.5),
+                                              size: 18,
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              GiftManager().reject_data(widget.giftItem.id.toString());
+                                            },
+                                            icon: Icon(
+                                              Icons.cancel,
+                                              color: Colors.black.withOpacity(0.5),
+                                              size: 18,
+                                            ),
+                                          ),
+                                ],
+                              ))
+                            ],
+                          ),
+                        ),
+                        flex: 8,
+                      ),
+                    ],
+                  ),
+                ),
+                elevation: 8,
+                margin: EdgeInsets.all(10),
               ),
-            ),
-            SizedBox(height: 20,),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-               Row(
-                 children: [
-                 IconButton(
-                             onPressed: () {
-                               GiftManager().update_data(giftItem.id.toString());
-                             },
-                             icon: Icon(
-                               Icons.check_circle,
-                               color: Colors.black.withOpacity(0.5),
-                               size: 18,
-                             ),
-                           ),
-                   IconButton(
-                             onPressed: () {},
-                             icon: Icon(
-                               Icons.cancel,
-                               color: Colors.black.withOpacity(0.5),
-                               size: 18,
-                             ),
-                           ),
-                 ],
-               )
-              ],
             ),
 
           ]
           else...[
-            Expanded(
-              flex: 2,
-              child:  Card(
-            child: Column(
-    mainAxisSize: MainAxisSize.max,
-    children: <Widget>[
-      Column(
-        children: [
-          Image.asset("assets/niki.png"),
-        ],
-      ),
-      SizedBox(height: 20,),
-      Center(
-        child: Column(
-          children: [
-            Text(giftItem.email.toString()),
-            SizedBox(height: 20,),
-            Text(giftItem.name.toString()),
-          ],
-        ),
-      ),
-      SizedBox(height: 20,),
-    Center(
-      child: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Text("Accepted")
-      ],
-      ),
-    ),
-    ],
-    ),
-    ),
+            Container(
+              child: Card(
+                child: Container(
+                  height: 120,
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Expanded(
+                            child: Image.asset("assets/niki.png"),
+                            flex: 2,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.topLeft,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: ListTile(
+                                  title: Text("Email: ${widget.giftItem.email.toString()}"),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: ListTile(
+                                  title: Text("Name: ${widget.giftItem.name.toString()}"),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: ListTile(
+                                  title: Text("Status: ${widget.giftItem.status.toString()}"),
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+
+                            ],
+                          ),
+                        ),
+                        flex: 8,
+                      ),
+                    ],
+                  ),
+                ),
+                elevation: 8,
+                margin: EdgeInsets.all(10),
+              ),
             ),
           ]
         ],
@@ -149,5 +163,5 @@ class SitterCart extends StatelessWidget {
 
 
     }
-  }
+}
 
