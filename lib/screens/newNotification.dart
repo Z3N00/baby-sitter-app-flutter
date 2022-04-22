@@ -54,6 +54,11 @@ class GiftManager {
     return true;
   }
 
+  Future reject_data(id) async {
+    var getcollection = FirebaseFirestore.instance.collection('booking');
+    getcollection.doc(id).update({"status": 'Rejected'});
+    return true;
+  }
   // List <String> get_blackout_dates(emailofSitter) async {
   //   List <String> dates_ = [];
   //   final CollectionReference users =

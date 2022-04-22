@@ -1,5 +1,6 @@
 import 'package:babycare/screens/notification.dart';
 import 'package:babycare/screens/sitterProfile.dart' show BabysitterProfile;
+import 'package:babycare/screens/splashscreen2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,10 @@ class _SitterHomeState extends State<SitterHome> {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text("Logout"),
                 ));
-                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Splashscreen1()),
+                );
               },
               icon: const Icon(Icons.logout),
             ),
