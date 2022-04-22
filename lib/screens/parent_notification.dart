@@ -9,7 +9,6 @@ class NotificationStatusCard extends StatefulWidget {
       : super(key: key);
 
 
-
   @override
   State<NotificationStatusCard> createState() => _NotificationStatusCardState();
 }
