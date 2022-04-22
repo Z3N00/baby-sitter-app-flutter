@@ -72,7 +72,7 @@ class GiftManager {
     var getcollection = FirebaseFirestore.instance.collection('booking');
     getcollection.doc(id).update({"status": 'Rejected'});
     FirebaseFirestore.instance.collection('notifications').add({
-      "email": "",
+      "email": email,
       "message": "Your Request of Booking has been rejected by $sitter_id",
       "name": "",
     }).then((value) {
