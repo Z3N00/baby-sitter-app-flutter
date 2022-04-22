@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/notification.dart';
 
 class GiftItem {
-  String? name, email;
+  String? name, email,sitteremail;
   String? price;
   String? id;
   String? status;
 
-  GiftItem({this.name, this.price, this.email, this.id, this.status});
+  GiftItem({this.name, this.price, this.email, this.id, this.status,this.sitteremail});
 }
 
 class GiftManager {
@@ -31,6 +31,7 @@ class GiftManager {
           booking.id = data['id'];
           booking.status = data['status'];
           booking.id = element.id;
+          booking.sitteremail = data['sitterId'];
 
           giftItems.add(booking);
         } else {
@@ -50,15 +51,32 @@ class GiftManager {
   // return FirebaseFirestore.instance.collection('booking').document(id).updateData(data);
   // }
 
-  Future update_data(id) async {
+  Future update_data(id,email,sitter_id) async {
     var getcollection = FirebaseFirestore.instance.collection('booking');
     getcollection.doc(id).update({"status": 'Confirmed'});
+
+    FirebaseFirestore.instance.collection('notifications').add({
+      "email": email,
+      "message": "Your Request of Booking has been accepted by $sitter_id ",
+      "name": "",
+    }).then((value) {
+      print(value);
+    });
+
     return true;
   }
 
-  Future reject_data(id) async {
+  Future reject_data(id,email,sitter_id) async {
     var getcollection = FirebaseFirestore.instance.collection('booking');
     getcollection.doc(id).update({"status": 'Rejected'});
+    FirebaseFirestore.instance.collection('notifications').add({
+      "email": "",
+      "message": "Your Request of Booking has been rejected by $sitter_id",
+      "name": "",
+    }).then((value) {
+      print(value);
+    });
+
     return true;
   }
   // List <String> get_blackout_dates(emailofSitter) async {
