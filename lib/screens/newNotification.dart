@@ -54,6 +54,8 @@ class GiftManager {
   Future update_data(id,email,sitter_id) async {
     var getcollection = FirebaseFirestore.instance.collection('booking');
     getcollection.doc(id).update({"status": 'Confirmed'});
+    print(email);
+    print(sitter_id);
 
     FirebaseFirestore.instance.collection('notifications').add({
       "email": email,
@@ -100,7 +102,7 @@ class GiftManager {
     var snapshot = await users.get();
     snapshot.docs.forEach((element) {
       Map<String, dynamic>? data = element.data() as Map<String, dynamic>?;
-      if (data != null && data['email'] == "parent1@gmail.com") {
+      if (data != null && data['email'] == email) {
         var notify = NotificationModel();
         notify.name = data['name'];
         notify.email = data['email'];
