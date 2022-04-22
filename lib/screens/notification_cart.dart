@@ -74,7 +74,6 @@ class _SitterCartState extends State<SitterCart> {
                                           IconButton(
                                             onPressed: () {
                                               GiftManager().reject_data(widget.giftItem.id.toString(),widget.giftItem.email.toString(),widget.giftItem.sitteremail.toString());
-
                                             },
                                             icon: Icon(
                                               Icons.cancel,

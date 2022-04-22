@@ -22,9 +22,7 @@ class _NotificationStatusState extends State<NotificationStatus> {
   @override
   void initState() {
     super.initState();
-
     fetchNotifications();
-
   }
 
   fetchNotifications() async {

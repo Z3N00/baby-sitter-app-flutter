@@ -10,7 +10,7 @@ class ParentProfile extends StatefulWidget {
   @override
   State<ParentProfile> createState() => _ParentProfileState();
 }
-
+final FirebaseAuth _auth = FirebaseAuth.instance;
 class _ParentProfileState extends State<ParentProfile> {
 
   String? uname ,email,address;

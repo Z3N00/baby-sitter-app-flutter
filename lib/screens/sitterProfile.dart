@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BabysitterProfile extends StatefulWidget{
@@ -9,42 +7,13 @@ class BabysitterProfile extends StatefulWidget{
   State<BabysitterProfile> createState() => _BabysitterProfileState();
 }
 
-
 class _BabysitterProfileState extends State<BabysitterProfile> {
-  String? _address, _rph;
+
   final TextEditingController _controller =
   TextEditingController(text: "Festive");
-
+  bool _isEnable = false;
   String _name = "Niki Singh";
   bool _isEditable = false;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  fetchUser() async {
-    final firebaseUser = await _auth.currentUser!;
-    print("------------------------------");
-    print(firebaseUser);
-    //email = firebaseUser.email;
-    _name = firebaseUser.displayName ?? "test";
-    //phone = firebaseUser.phoneNumber as int? ?? 5148851994;
-    _address = "test data";
-    _rph = "35/h";
-    print("-------------------------------");
-
-  }
-
-  updateData() async{
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc('uid')
-        .update(
-        {
-          'name':_name ,'address':_address, 'rph': _rph
-        }).then((result){
-      print("new USer true");
-    }).catchError((onError){
-      print("onError");
-    });
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -164,11 +133,6 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                   ),
                   const SizedBox(
                     height: 20,
-                  ),
-
-                  Padding(
-                      padding: EdgeInsets.only(right: 250),
-                    child: Text("Rate per hour: ${_rph}"),
                   ),
 
                   Column(
