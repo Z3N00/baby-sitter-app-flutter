@@ -43,6 +43,9 @@ class _NotificationStatusState extends State<NotificationStatus> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Notification status"),
+        centerTitle: true,
+        backgroundColor: Color(0xff6043F5),
+        elevation: 0,
       ),
       body: Container(
           margin: new EdgeInsets.only(top: 10,bottom: 10),
