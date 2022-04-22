@@ -11,7 +11,7 @@ class BabysitterProfile extends StatefulWidget{
 
 
 class _BabysitterProfileState extends State<BabysitterProfile> {
-  String? _address, _rph;
+  String? _address, _rph="35/h";
   final TextEditingController _controller =
   TextEditingController(text: "Festive");
 
@@ -167,7 +167,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                   ),
 
                   Padding(
-                      padding: EdgeInsets.only(right: 250),
+                      padding: EdgeInsets.only(right: 250, bottom: 20),
                     child: Text("Rate per hour: ${_rph}"),
                   ),
 
@@ -187,7 +187,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
 
                       Container(
                         width: 300,
-                        height: 250,
+                        height: 100,
                         child:  const Card(
                             color: Colors.white10,
                             child: Padding(
