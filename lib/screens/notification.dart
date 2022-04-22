@@ -60,7 +60,9 @@ class _SitterNotificationState extends State<SitterNotification> {
         child: Column(
 
           children: [
-            Expanded(
+            Container(
+              height: 150,
+              width: double.infinity,
               child: ListView(
                 padding: EdgeInsets.all(8),
                 shrinkWrap: true,
