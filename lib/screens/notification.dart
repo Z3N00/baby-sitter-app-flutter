@@ -2,6 +2,7 @@
 
 import 'package:babycare/screens/notification_cart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +11,7 @@ import 'newNotification.dart';
 
 
 class SitterNotification extends StatefulWidget {
-
-  final String email;
-  const SitterNotification({Key? key, required this.email}) : super(key: key);
+   SitterNotification({Key? key}) : super(key: key);
 
   @override
   State<SitterNotification> createState() => _SitterNotificationState();
@@ -22,6 +21,7 @@ class _SitterNotificationState extends State<SitterNotification> {
 
   List<GiftItem> giftItems = [];
 
+  final email =  FirebaseAuth.instance.currentUser!.email;
 
   @override
   void initState() {
@@ -32,7 +32,9 @@ class _SitterNotificationState extends State<SitterNotification> {
   }
 
   fetchGiftData() async {
-    dynamic result = await GiftManager().getGiftItemList(widget.email);
+    print(this.email);
+
+    dynamic result = await GiftManager().getGiftItemList(this.email);
     if (result == null) {
       print("Gift list null");
     } else {

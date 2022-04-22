@@ -13,6 +13,7 @@ class GiftManager {
   List<GiftItem> giftItems = [];
 
   Future getGiftItemList(email) async {
+    print(email);
     final CollectionReference gifts =
         FirebaseFirestore.instance.collection('booking');
     try {
