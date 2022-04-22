@@ -14,7 +14,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 class _ParentProfileState extends State<ParentProfile> {
   String? uname ,email,address;
   int? phone;
-
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   fetchUser() async {
     final firebaseUser = await _auth.currentUser!;
     print("------------------------------");
@@ -25,6 +25,20 @@ class _ParentProfileState extends State<ParentProfile> {
     address = "test data";
     print("-------------------------------");
 
+  }
+
+  updateData() async{
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc('uid')
+        .update(
+        {
+      'name':uname ,'address':address,'phone':phone,
+    }).then((result){
+      print("new USer true");
+    }).catchError((onError){
+      print("onError");
+    });
   }
 
 

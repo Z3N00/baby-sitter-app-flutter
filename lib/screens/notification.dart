@@ -40,11 +40,7 @@ class _SitterNotificationState extends State<SitterNotification> {
     } else {
       setState(() {
         giftItems = result;
-        // for(var i = 0; i< giftItems.length; i++){
-        //
-        //   giftItems.add(giftItems[i]);
-        //
-        // }
+
       });
     }
   }
@@ -60,10 +56,12 @@ class _SitterNotificationState extends State<SitterNotification> {
         child: Column(
 
           children: [
-            Expanded(
+            Container(
+              height: 100,
+              width: double.infinity,
               child: ListView(
                 padding: EdgeInsets.all(8),
-                shrinkWrap: true,
+                shrinkWrap: false,
                 // physics: NeverScrollableScrollPhysics(),
                 children: [
                   Container(

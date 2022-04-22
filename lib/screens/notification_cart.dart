@@ -19,7 +19,7 @@ class SitterCart extends StatelessWidget {
       child:Column(
 
         children: [
-          if(giftItem.status.toString() == "Pending")...[
+          if(giftItem.status.toString() != "Pending")...[
              Card(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -28,7 +28,7 @@ class SitterCart extends StatelessWidget {
                     leading: Container(
                       height: 50,
                       width: 50,
-                      child: Image.asset("assets/nikki.png"),
+                      child: Image.asset("assets/niki.png"),
                     ),
                     title: Text(giftItem.name.toString()),
                     subtitle: Text(giftItem.email.toString()),
