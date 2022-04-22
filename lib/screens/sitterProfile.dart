@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BabysitterProfile extends StatefulWidget{
@@ -6,14 +8,41 @@ class BabysitterProfile extends StatefulWidget{
   @override
   State<BabysitterProfile> createState() => _BabysitterProfileState();
 }
-
+final FirebaseAuth _auth = FirebaseAuth.instance;
 class _BabysitterProfileState extends State<BabysitterProfile> {
 
   final TextEditingController _controller =
   TextEditingController(text: "Festive");
-  bool _isEnable = false;
-  String _name = "Niki Singh";
+  String? _name, _address, _rph;
   bool _isEditable = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+
+  // fetchUser() async {
+  //   final firebaseUser = await _auth.currentUser!;
+  //   print("------------------------------");
+  //   print(firebaseUser);
+  //  // email = firebaseUser.email;
+  //   _name = firebaseUser.displayName ?? "Nikki";
+  //   //phone = firebaseUser.phoneNumber as int? ?? 5148851994;
+  //   _address = "Bbay sitter profile.......";
+  //   print("-------------------------------");
+  //
+  // }
+  //
+  // updateData() async{
+  //   FirebaseFirestore.instance
+  //       .collection('Users')
+  //       .doc('uid')
+  //       .update(
+  //       {
+  //         'name':_name ,'address':_address,'rph':_rph,
+  //       }).then((result){
+  //     print("new USer true");
+  //   }).catchError((onError){
+  //     print("onError");
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +104,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                               Container(
                                 width: 150,
                                 child: !_isEditable
-                                ? Text(_name)
+                                ? Text("_name")
                                 :TextFormField(
                                   initialValue: _name,
                                   textInputAction: TextInputAction.done,
@@ -151,7 +180,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
 
                       Container(
                         width: 300,
-                        height: 250,
+                        height: 100,
                         child:  const Card(
                             color: Colors.white10,
                             child: Padding(
