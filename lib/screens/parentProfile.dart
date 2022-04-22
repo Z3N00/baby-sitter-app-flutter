@@ -10,39 +10,28 @@ class ParentProfile extends StatefulWidget {
   @override
   State<ParentProfile> createState() => _ParentProfileState();
 }
-
+final FirebaseAuth _auth = FirebaseAuth.instance;
 class _ParentProfileState extends State<ParentProfile> {
   String? uname ,email,address;
   int? phone;
 
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   fetchUser() async {
     final firebaseUser = await _auth.currentUser!;
+    print("------------------------------");
     print(firebaseUser);
     email = firebaseUser.email;
     uname = firebaseUser.displayName ?? "test";
     phone = firebaseUser.phoneNumber as int? ?? 5148851994;
     address = "test data";
-    // if (firebaseUser != null) {
-    //   await FirebaseFirestore.instance
-    //       .collection('users')
-    //       .doc(firebaseUser.uid)
-    //       .get()
-    //       .then((ds) {
-    //
-    //     uname = ds.data()!["name"];
-    //   }).catchError((e) {
-    //     print(e);
-    //   });
-    // }
+    print("-------------------------------");
+
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
@@ -50,9 +39,6 @@ class _ParentProfileState extends State<ParentProfile> {
 
         child: Column(
             children:  [
-
-
-
               const Padding(
                 padding: EdgeInsets.only(top: 20, right: 250),
                 child: Text("Profile",
@@ -98,8 +84,8 @@ class _ParentProfileState extends State<ParentProfile> {
                 }
           else {
                   print(uname);
-                  print("------------------------")
-                  return Text("${uname}");
+                  print("------------------------");
+                 return Text("");
                 }
               },
       ),

@@ -12,9 +12,10 @@ class SitterCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-
+    
+    return Expanded(
+     // color: Colors.red,
+      flex: 2,
       child:Column(
 
         children: [
@@ -24,7 +25,11 @@ class SitterCart extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.album),
+                    leading: Container(
+                      height: 50,
+                      width: 50,
+                      child: Image.asset("assets/nikki.png"),
+                    ),
                     title: Text(giftItem.name.toString()),
                     subtitle: Text(giftItem.email.toString()),
                   ),
@@ -57,13 +62,18 @@ class SitterCart extends StatelessWidget {
             ),
           ]
           else...[
-            Container(
+            Expanded(
+              flex: 2,
               child:  Card(
             child: Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
      ListTile(
-    leading: Icon(Icons.album),
+       leading: Container(
+         height: 50,
+         width: 50,
+         child: Image.asset("assets/niki.png"),
+       ),
     subtitle: Text(giftItem.email.toString()),
     title: Text(giftItem.name.toString()),
     ),
