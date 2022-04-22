@@ -42,6 +42,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
       ),
       bottomNavigationBar: Container(
+        color: Colors.black,
         child:  TextButton(style: TextButton.styleFrom(
           primary: Colors.blueAccent,
           padding: const EdgeInsets.all(16.0),
