@@ -12,12 +12,12 @@ class BabysitterProfile extends StatefulWidget{
 
 class _BabysitterProfileState extends State<BabysitterProfile> {
   String? _address, _rph="35/h";
-  final TextEditingController _controller =
-  TextEditingController(text: "Festive");
+  final TextEditingController _controller = TextEditingController();
 
   String _name = "Niki Singh";
   bool _isEditable = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   fetchUser() async {
     final firebaseUser = await _auth.currentUser!;
     print("------------------------------");
@@ -44,6 +44,14 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
       print("onError");
     });
   }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    _controller.dispose();
+    super.dispose();
+  }
+
 
 
   @override
@@ -108,6 +116,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                                 child: !_isEditable
                                 ? Text(_name)
                                 :TextFormField(
+                                  controller: _controller,
                                   decoration: const InputDecoration(
                                       border: InputBorder.none
                                   ),
@@ -150,13 +159,14 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                               child: !_isEditable ?
                               Text("Montreal, Quebec Canada")
                               : TextFormField(
+                                controller: _controller,
                                 decoration: InputDecoration(
                                   border: InputBorder.none
                                 ),
                                 initialValue: _address,
                                 textInputAction: TextInputAction.done,
                                 onFieldSubmitted: (value){
-                                  setState(() => {_isEditable = false, _name=value});
+                                  setState(() => {_isEditable = false, _address=value});
                                 },
                               )
                                   
@@ -192,7 +202,19 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
 
                   Padding(
                       padding: const EdgeInsets.only(right: 250, bottom: 20),
-                    child: Text("Rate per hour: ${_rph}"),
+                    child: !_isEditable ?
+                    Text("35/h")
+                        : TextFormField(
+                      controller: _controller,
+                      decoration: InputDecoration(
+                          border: InputBorder.none
+                      ),
+                      initialValue: _rph,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (value){
+                        setState(() => {_isEditable = false, _rph=value});
+                      },
+                    ),
                   ),
 
                   Column(
@@ -212,11 +234,12 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                       Container(
                         width: 300,
                         height: 100,
-                        child:  const Card(
+                        child:   Card(
                             color: Colors.white10,
                             child: Padding(
                               padding: EdgeInsets.all(8.0),
                               child: TextField(
+                                controller: _controller,
                                 maxLines: 8,
                                 decoration: InputDecoration.collapsed(hintText: "Write Something here..."),
                               ),
