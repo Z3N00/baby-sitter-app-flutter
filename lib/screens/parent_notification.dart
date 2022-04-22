@@ -1,5 +1,5 @@
-import 'package:babycare/screens/newNotification.dart';
 import 'package:flutter/material.dart';
+import 'package:babycare/screens/newNotification.dart';
 
 
 class NotificationStatusCard extends StatefulWidget {
