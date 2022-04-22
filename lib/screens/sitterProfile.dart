@@ -108,6 +108,9 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                                 child: !_isEditable
                                 ? Text(_name)
                                 :TextFormField(
+                                  decoration: const InputDecoration(
+                                      border: InputBorder.none
+                                  ),
                                   initialValue: _name,
                                   textInputAction: TextInputAction.done,
                                    onFieldSubmitted: (value){
@@ -146,7 +149,16 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                               width: 150,
                               child: !_isEditable ?
                               Text("Montreal, Quebec Canada")
-                              : Text("data")
+                              : TextFormField(
+                                decoration: InputDecoration(
+                                  border: InputBorder.none
+                                ),
+                                initialValue: _address,
+                                textInputAction: TextInputAction.done,
+                                onFieldSubmitted: (value){
+                                  setState(() => {_isEditable = false, _name=value});
+                                },
+                              )
                                   
                               ),
                               Container(
@@ -158,7 +170,12 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                                   ),
                                   iconSize: 20,
                                   color: Colors.black,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState((){
+                                      _isEditable = true;
+
+                                    });
+                                  },
                                 ),
                               ),
                             ],
