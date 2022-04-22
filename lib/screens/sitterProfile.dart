@@ -12,7 +12,10 @@ class BabysitterProfile extends StatefulWidget{
 
 class _BabysitterProfileState extends State<BabysitterProfile> {
   String? _address="Montreal Quebec, Canada", _rph="35/h";
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _nameController = TextEditingController(text: "Enter Your Name");
+  final TextEditingController _addressController = TextEditingController(text: "Enter your location");
+  final TextEditingController _rphController = TextEditingController(text: "Enter rate per hour");
+  final TextEditingController _descriptionController = TextEditingController();
 
   String _name = "Niki Singh";
   bool _isEditable = false;
@@ -44,13 +47,16 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
       print("onError");
     });
   }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    _controller.dispose();
-    super.dispose();
-  }
+  //
+  // @override
+  // void dispose() {
+  //   // Clean up the controller when the widget is disposed.
+  //   _nameController.dispose();
+  //   _addressController.dispose();
+  //   _rphController.dispose();
+  //   _descriptionController.dispose();
+  //   super.dispose();
+  // }
 
 
 
@@ -64,12 +70,13 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            child: Container(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 170),
-                    child: Text("Profile",
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+
+                    child: const Text("Profile",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Color(0xff6043F5),
@@ -78,195 +85,183 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                       ),
                     ),
                   ),
+                    Container(
 
-                  Row(
-                    children:[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 20),
-                        child: Container(
-                          height: 120,
-                          width: 120,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.edit,
+                        ),
+                        iconSize: 20,
+                        color: Color(0xff6043F5),
+                        onPressed: () {
+                          setState((){
+                            _isEditable = true;
 
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 0.0,
+                          });
+                        },
+                      ),
+                    ),
+                ]
+                ),
+
+                Row(
+                  children:[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 20),
+                      child: Container(
+                        height: 120,
+                        width: 120,
+
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 0.0,
+
+                          ),
+                            image: const DecorationImage(
+                              image: AssetImage("assets/niki.png"),
+                              fit: BoxFit.fill,
+                            ),
+                            borderRadius: BorderRadius.circular(30)
+                        ),
+                        child: null,
+
+                      ),
+                    ),
+
+                    const SizedBox(
+                      width: 30,
+                    ),
+
+                    Column(
+                      children:  [
+                        Row(
+                          children:  [
+                            Container(
+                              width: 150,
+                              child: !_isEditable
+                              ? Text(_name)
+                              :TextFormField(
+                                controller: _nameController,
+                                decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                  contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
+                                ),
+
+                                textInputAction: TextInputAction.done,
+                                 onFieldSubmitted: (value){
+                                  setState(() => {_isEditable = false, _name=value});
+                                 },
+
+                                 style: const TextStyle(
+                                  color: Color(0xff6043F5),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold
+                              ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                            width: 150,
+                            child: !_isEditable ?
+                            Text("Montreal, Quebec Canada")
+                            : TextFormField(
+                              controller: _addressController,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                  contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
+                              ),
+
+                              textInputAction: TextInputAction.done,
+                              onFieldSubmitted: (value){
+                                setState(() => {_isEditable = false, _address=value});
+                              },
+                            )
 
                             ),
-                              image: const DecorationImage(
-                                image: AssetImage("assets/niki.png"),
-                                fit: BoxFit.fill,
-                              ),
-                              borderRadius: BorderRadius.circular(30)
-                          ),
-                          child: null,
 
-                        ),
-                      ),
-
-                      const SizedBox(
-                        width: 30,
-                      ),
-
-                      Column(
-                        children:  [
-                          Row(
-                            children:  [
-                              Container(
-                                width: 150,
-                                child: !_isEditable
-                                ? Text(_name)
-                                :TextFormField(
-                                  controller: _controller,
-                                  decoration: const InputDecoration(
-                                      border: InputBorder.none
-                                  ),
-                                  initialValue: _name,
-                                  textInputAction: TextInputAction.done,
-                                   onFieldSubmitted: (value){
-                                    setState(() => {_isEditable = false, _name=value});
-                                   },
-
-                                   style: const TextStyle(
-                                    color: Color(0xff6043F5),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
-                                ),
-                                ),
-                              ),
-                              Container(
-
-                                alignment: Alignment.center,
-                                child: IconButton(
-                                  icon: const Icon(
-                                    Icons.edit,
-                                  ),
-                                  iconSize: 20,
-                                  color: Color(0xff6043F5),
-                                  onPressed: () {
-                                    setState((){
-                                      _isEditable = true;
-
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                              width: 150,
-                              child: !_isEditable ?
-                              Text("Montreal, Quebec Canada")
-                              : TextFormField(
-                                controller: _controller,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none
-                                ),
-                                initialValue: _address,
-                                textInputAction: TextInputAction.done,
-                                onFieldSubmitted: (value){
-                                  setState(() => {_isEditable = false, _address=value});
-                                },
-                              )
-                                  
-                              ),
-                              Container(
-
-                                alignment: Alignment.center,
-                                child: IconButton(
-                                  icon: const Icon(
-                                    Icons.edit,
-                                  ),
-                                  iconSize: 20,
-                                  color: Colors.black,
-                                  onPressed: () {
-                                    setState((){
-                                      _isEditable = true;
-
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          )
-
-                        ]
-                      )
-
-                    ]
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  Padding(
-                      padding: const EdgeInsets.only(right: 250, bottom: 20),
-                    child: !_isEditable ?
-                    Text("35/h")
-                        : TextFormField(
-                      controller: _controller,
-                      decoration: InputDecoration(
-                          border: InputBorder.none
-                      ),
-                      initialValue: _rph,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (value){
-                        setState(() => {_isEditable = false, _rph=value});
-                      },
-                    ),
-                  ),
-
-                  Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(right:105),
-                        child: Text("DESCRIPTION",
-                          textAlign:TextAlign.left,
-                          style: TextStyle(
-                            color: Color(0xff6043F5),
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        ),
-                        ),
-                      ),
-
-                      Container(
-                        width: 300,
-                        height: 100,
-                        child:   Card(
-                            color: Colors.white10,
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: TextField(
-                                controller: _controller,
-                                maxLines: 8,
-                                decoration: InputDecoration.collapsed(hintText: "Write Something here..."),
-                              ),
-                            )
+                          ],
                         )
+
+                      ]
+                    )
+
+                  ]
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Padding(
+                    padding: const EdgeInsets.only(right: 250, bottom: 20),
+                  child: !_isEditable ?
+                  Text("35/h")
+                      : TextFormField(
+                    controller: _rphController,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
+                    ),
+
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (value){
+                      setState(() => {_isEditable = false, _rph=value});
+                    },
+                  ),
+                ),
+
+                Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right:105),
+                      child: Text("DESCRIPTION",
+                        textAlign:TextAlign.left,
+                        style: TextStyle(
+                          color: Color(0xff6043F5),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold
                       ),
-                      ElevatedButton(
+                      ),
+                    ),
 
-                        style: ButtonStyle(
-                          
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor: MaterialStateProperty.all<Color>(Color(0xff6043F5))
-
-                        ),
-                        onPressed: () {
-
-                          updateData();
-                        },
-                        child: const Text('Save'),
+                    Container(
+                      width: 300,
+                      height: 100,
+                      child:   Card(
+                          color: Colors.white10,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: TextField(
+                              controller: _descriptionController,
+                              maxLines: 8,
+                              decoration: InputDecoration.collapsed(hintText: "Write Something here..."),
+                            ),
+                          )
                       )
+                    ),
+                    ElevatedButton(
 
-                    ],
-                  )
+                      style: ButtonStyle(
 
-                ]
-              )
-              ),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all<Color>(Color(0xff6043F5))
+
+                      ),
+                      onPressed: () {
+
+                        updateData();
+                      },
+                      child: const Text('Save'),
+                    )
+
+                  ],
+                )
+
+              ]
+            ),
 
             ),
           ),
