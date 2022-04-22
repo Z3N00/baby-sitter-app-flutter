@@ -19,7 +19,7 @@ class _ParentProfileState extends State<ParentProfile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   fetchUser() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser!;
+    final firebaseUser = await _auth.currentUser!;
     print(firebaseUser);
     email = firebaseUser.email;
     uname = firebaseUser.displayName ?? "test";
@@ -96,7 +96,9 @@ class _ParentProfileState extends State<ParentProfile> {
           if (snapshot.connectionState != ConnectionState.done) {
                   return Text("Loading data");
                 }
-          else {print(uname);
+          else {
+                  print(uname);
+                  print("------------------------")
                   return Text("${uname}");
                 }
               },
