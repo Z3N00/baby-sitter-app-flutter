@@ -13,7 +13,7 @@ class BabysitterProfile extends StatefulWidget{
 
 class _BabysitterProfileState extends State<BabysitterProfile> {
   final email =  FirebaseAuth.instance.currentUser!.email;
-  String? _name="Niki", _address="Montreal Quebec, Canada", _rph = "35/hr", _desc="I am a babysitter" ;
+  String? _name="Niki", _address="Montreal Quebec, Canada", _rph = "35/hr", _desc="Description..." ;
   final TextEditingController _nameController = TextEditingController(text: "Enter Name");
   final TextEditingController _addressController = TextEditingController(text: "Enter Address");
   final TextEditingController _rphController = TextEditingController(text: "Enter rate");
@@ -89,13 +89,13 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                 ]
                 ),
 
-                Row(
+                Column(
                   children:[
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 20),
+                      padding: const EdgeInsets.only(left:20, top: 20),
                       child: Container(
-                        height: 120,
-                        width: 120,
+                        height: 200,
+                        width: 200,
 
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -114,63 +114,81 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                     ),
 
                     const SizedBox(
-                      width: 30,
+                      height: 20,
                     ),
 
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
                       children:  [
-                        Column(
-                          children:  [
-                            Container(
-                              width: 150,
-                              child: !_isEditable
-                              ? Text(_name!,style: const TextStyle(
-                                  color: Color(0xff6043F5),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
-                              ),)
-                              :TextFormField(
-                                controller: _nameController,
-                                decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
-                                ),
-
-                                textInputAction: TextInputAction.done,
-                                 onFieldSubmitted: (value){
-                                  setState(() => {_isEditable = false, _name=value});
-                                 },
-
-                                 style: const TextStyle(
-                                  color: Color(0xff6043F5),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
-                              ),
-                              ),
+                        Container(
+                          padding: EdgeInsets.only(left: 40),
+                          width: double.infinity,
+                          child: !_isEditable
+                          ? Text(_name!,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Color(0xff6043F5),
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold
+                          ),)
+                          :TextFormField(
+                            controller: _nameController,
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
+                            ),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                color: Color(0xff6043F5),
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold
                             ),
 
-                          ],
-                        ),
-                        Container(
-                        width: 150,
-                        child: !_isEditable ?
-                        Text(_address.toString())
-                        : TextFormField(
-                          controller: _addressController,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
+                            textInputAction: TextInputAction.done,
+                             onFieldSubmitted: (value){
+                              setState(() => {_isEditable = false, _name=value});
+                             },
+
+
+                          ),
                           ),
 
-                          textInputAction: TextInputAction.done,
-                          onFieldSubmitted: (value){
-                            setState(() => {_isEditable = false, _address=value});
-                          },
-                        )
 
-                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                    padding: EdgeInsets.only(left: 40),
+                    width: double.infinity,
+                    child: !_isEditable ?
+                    Text(_address.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
 
-                      ]
+                    ),)
+                    : TextFormField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 50, horizontal: 20)
+                      ),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+
+                      ),
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (value){
+                        setState(() => {_isEditable = false, _address=value});
+                      },
+                    )
+
                     )
 
                   ]
@@ -180,16 +198,27 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                 ),
 
                 Padding(
-                    padding: const EdgeInsets.only(right: 250, bottom: 20),
+                    padding: const EdgeInsets.only(left: 10, bottom: 20),
                   child: !_isEditable ?
-                  Text("Rate: " + _rph.toString())
+                  Text("Rate: " + _rph.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  )
                       : TextFormField(
                     controller: _rphController,
                     decoration: const InputDecoration(
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
-                    ),
+                        contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
 
+                    ),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                     textInputAction: TextInputAction.done,
                     onFieldSubmitted: (value){
                       setState(() => {_isEditable = false, _rph=value});
@@ -199,17 +228,17 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
 
                 Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(right:105),
-                      child: Text("DESCRIPTION",
-                        textAlign:TextAlign.left,
-                        style: TextStyle(
-                          color: Color(0xff6043F5),
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold
-                      ),
-                      ),
-                    ),
+                    // const Padding(
+                    //   padding: EdgeInsets.only(right:105),
+                    //   child: Text("DESCRIPTION",
+                    //     textAlign:TextAlign.left,
+                    //     style: TextStyle(
+                    //       color: Color(0xff6043F5),
+                    //       fontSize: 30,
+                    //       fontWeight: FontWeight.bold
+                    //   ),
+                    //   ),
+                    // ),
 
                     Container(
                       width: 300,
