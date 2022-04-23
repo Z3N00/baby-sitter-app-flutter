@@ -23,31 +23,29 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+
  getData() async{
    FirebaseFirestore.instance
        .collection('users')
        .where("email", isEqualTo: email)
        .snapshots()
        .listen((data) =>
+
        data.docs.forEach((doc) => {
 
           _name = doc['name'],
          _address = doc['address'],
          _rph = doc['rate'],
-         _desc = doc['desc']
+         _desc = doc['description']
            }
        ));
  }
   @override
   void initState() {
     super.initState();
-
     getData();
+
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +63,6 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                 Row(
                   children: [
                     Container(
-
                     child: const Text("Profile",
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -76,7 +73,6 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                     ),
                   ),
                     Container(
-
                       child: IconButton(
                         icon: const Icon(
                           Icons.edit,
@@ -86,7 +82,6 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                         onPressed: () {
                           setState((){
                             _isEditable = true;
-
                           });
                         },
                       ),
@@ -124,7 +119,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
 
                     Column(
                       children:  [
-                        Row(
+                        Column(
                           children:  [
                             Container(
                               width: 150,
@@ -156,28 +151,23 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
 
                           ],
                         ),
-                        Row(
-                          children: [
-                            Container(
-                            width: 150,
-                            child: !_isEditable ?
-                            Text(_address.toString())
-                            : TextFormField(
-                              controller: _addressController,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
-                              ),
+                        Container(
+                        width: 150,
+                        child: !_isEditable ?
+                        Text(_address.toString())
+                        : TextFormField(
+                          controller: _addressController,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
+                          ),
 
-                              textInputAction: TextInputAction.done,
-                              onFieldSubmitted: (value){
-                                setState(() => {_isEditable = false, _address=value});
-                              },
-                            )
+                          textInputAction: TextInputAction.done,
+                          onFieldSubmitted: (value){
+                            setState(() => {_isEditable = false, _address=value});
+                          },
+                        )
 
-                            ),
-
-                          ],
                         )
 
                       ]
@@ -195,7 +185,7 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                   Text("Rate: " + _rph.toString())
                       : TextFormField(
                     controller: _rphController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0)
                     ),
@@ -225,13 +215,18 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
                       width: 300,
                       height: 100,
                       child:   Card(
-                          color: Colors.white10,
+                          color: Colors.white70,
                           child: Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: TextField(
+                            child: !_isEditable ?
+                            Text(_desc.toString()) :
+                            TextFormField(
                               controller: _descriptionController,
                               maxLines: 8,
-                              decoration: InputDecoration.collapsed(hintText: _desc),
+                              textInputAction: TextInputAction.done,
+                              onFieldSubmitted: (value){
+                                setState(() => {_isEditable = false, _desc=value});
+                              },
                             ),
                           )
                       )
@@ -245,9 +240,13 @@ class _BabysitterProfileState extends State<BabysitterProfile> {
 
                       ),
                       onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Profile Updated"),
+                        ));
                         GiftManager().update_user(_nameController.text, _rphController.text, email, _descriptionController.text, _addressController.text);
+                        _isEditable = false;
                       },
-                      child: const Text('Save'),
+                      child: const Text('Update'),
                     )
 
                   ],
