@@ -56,7 +56,8 @@ class _SitterNotificationState extends State<SitterNotification> {
               padding: const EdgeInsets.only(top: 10.0),
               itemBuilder: (context, index) {
                 return SitterCart(giftItem: giftItems[index],);
-              })
+              },
+            )
       ),
     );
   }

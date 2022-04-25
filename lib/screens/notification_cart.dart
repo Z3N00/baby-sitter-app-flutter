@@ -1,6 +1,8 @@
 import 'package:babycare/screens/newNotification.dart';
 import 'package:flutter/material.dart';
 
+import 'notification.dart';
+
 class SitterCart extends StatefulWidget {
   final GiftItem giftItem;
   const SitterCart({
@@ -73,7 +75,11 @@ class _SitterCartState extends State<SitterCart> {
                                 IconButton(
                                             onPressed: () {
                                               GiftManager().update_data(widget.giftItem.id.toString(),widget.giftItem.email.toString(),widget.giftItem.sitteremail.toString());
-
+                                              Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => SitterNotification()),
+                                                    (Route<dynamic> route) => false,
+                                              );
                                             },
                                             icon: Icon(
                                               Icons.check_circle,
